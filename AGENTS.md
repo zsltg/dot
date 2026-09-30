@@ -24,7 +24,7 @@ Dotfiles and tool installs for Linux (Ubuntu) and macOS, managed with chezmoi. O
 - End-to-end: clean `ubuntu:24.04` container, non-root user with passwordless sudo, preset `~/.config/chezmoi/chezmoi.toml` data, `chezmoi init --source <repo> --apply --no-tty`. Second `chezmoi apply` must be a no-op. Docker builds need `--network host` on this host.
 - Startup budget: `zsh -i -c exit` near 100 ms. Profile with `zmodload zsh/zprof` before regressing it.
 ## Conventions
-- Add or remove a tool: edit `packages.yaml` only. Prefer brew formula. Use mise when brew lacks it, lags upstream, or drags heavy deps (llvm, apache-arrow). Record the reason as a comment next to the entry.
+- Add or remove a tool: edit `packages.yaml` and the `README.md` tool list (command name, repo link, one sentence). Prefer brew formula. Use mise when brew lacks it, lags upstream, or drags heavy deps (llvm, apache-arrow). Record the reason as a comment next to the entry.
 - Latest versions by default. Install man pages and zsh completions for every tool, user completions to `~/.local/share/zsh/site-functions`.
 - Every template renders on linux and darwin, amd64 and arm64. Guard OS-specific parts with `.chezmoi.os` and `.chezmoi.arch`, OS-specific files via `home/.chezmoiignore.tmpl`.
 - Access optional data keys with `index`, not dot access (templates run with `missingkey=error`).
