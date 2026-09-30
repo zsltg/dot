@@ -1,0 +1,40 @@
+# Run scripts/check.sh: render the templates for each OS, arch and palette,
+# lint the rendered scripts and zsh files, lint the workflows and find secrets.
+# The primary remote is a self-hosted git server, so each job runs only on the
+# GitHub mirror. Actions are pinned by commit SHA.
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    if: github.server_url == 'https://github.com'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # Homebrew is on the runner image, but not on PATH. It gives the latest
+      # versions, the same as on a machine that this repo sets up.
+      - name: Install tools
+        run: |
+          sudo apt-get install -y --no-install-recommends zsh
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          brew install chezmoi shellcheck actionlint zizmor gitleaks
+          echo "$HOMEBREW_PREFIX/bin" >>"$GITHUB_PATH"
+      - name: Check
+        env:
+          GH_TOKEN: ${{ github.token }} # zizmor online audits
+        run: scripts/check.sh

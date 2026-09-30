@@ -204,8 +204,19 @@ Enable the gitleaks pre-commit hook once per clone:
 git config core.hooksPath .githooks
 ```
 
+## Checks
+
+`scripts/check.sh` renders the templates for Linux and macOS, amd64 and arm64, and each palette. Then it lints the rendered scripts and zsh files, lints the GitHub workflows and finds secrets. The Lint workflow runs it on each push and pull request. Run it before you commit:
+
+```sh
+scripts/check.sh
+```
+
+It needs the dev group tools. Set `GH_TOKEN` to let zizmor also run its online audits.
+
 ## Repo layout
 
 - `home/`: the chezmoi source state (see `.chezmoiroot`).
 - `home/.chezmoiscripts/`: install scripts, in the order of their numbers.
+- `scripts/check.sh`: the repo checks. `.github/workflows/`: the CI workflows.
 - `home/.lazy-lock.json`: the plugin versions for Neovim. `~/.config/nvim/lazy-lock.json` is a symlink to this file, so `:Lazy update` changes it in the repo. Commit the change.

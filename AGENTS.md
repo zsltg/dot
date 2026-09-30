@@ -14,12 +14,13 @@ Dotfiles and tool installs for Linux (Ubuntu) and macOS, managed with chezmoi. O
 - `home/.chezmoidata/palette.yaml`: single source of truth for colors and tool theme names, per palette. Every template renders for each palette.
 - `home/.chezmoiscripts/`: install scripts, run in number order. `run_onchange_` reruns when rendered content changes, hash inputs in a comment line.
 - `home/.chezmoitemplates/`: shared template snippets (`brew-env`, `groups`).
+- `.github/workflows/`: CI, GitHub mirror only. Pin actions by commit SHA, `permissions: contents: read`, `persist-credentials: false`.
 - `home/private_dot_config/zsh/*.zsh`: interactive modules, sourced by `dot_zshrc`. `path.zsh` sourced by `.zshenv` and `.zprofile` only.
 - `home/.lazy-lock.json`: nvim plugin lock. `~/.config/nvim/lazy-lock.json` symlinks to it, so `:Lazy update` shows as a repo diff.
 ## Commands
 - Preview: `chezmoi diff`. Apply: `chezmoi apply`. Render one template: `chezmoi execute-template < <file>`.
 - Render for the other OS: `chezmoi --override-data '{"chezmoi":{"os":"darwin","arch":"arm64"}}' execute-template < <file>`.
-- Lint rendered scripts for both OSes: `shellcheck -S warning` on every rendered `.chezmoiscripts/*` output. Syntax: `bash -n` scripts, `zsh -n` zsh files.
+- Check: `scripts/check.sh`. Renders target state per OS, arch, palette, groups on/off. `bash -n` and `shellcheck -S warning` rendered scripts, `zsh -n` zsh files, shellcheck repo scripts, actionlint, zizmor, gitleaks. CI runs it (`.github/workflows/lint.yml`).
 - Secrets: `gitleaks dir .`. Pre-commit hook: `git config core.hooksPath .githooks` (runs `gitleaks git --staged`).
 - End-to-end: clean `ubuntu:24.04` container, non-root user with passwordless sudo, preset `~/.config/chezmoi/chezmoi.toml` data, `chezmoi init --source <repo> --apply --no-tty`. Second `chezmoi apply` must be a no-op. Docker builds need `--network host` on this host.
 - Startup budget: `zsh -i -c exit` near 100 ms. Profile with `zmodload zsh/zprof` before regressing it.
@@ -45,4 +46,4 @@ Only when asked:
 - Conventional Commits: `<type>(<scope>): <description>`, lowercase imperative. Types feat, fix, docs, style, refactor, perf, test, build, ci, chore. Scope is the area: `zsh`, `nvim`, `alacritty`, `tmux`, `git`, `packages`, `scripts`, `mise`.
 - One atomic change per commit, no unrelated changes bundled.
 - Agent-authored commits end with a `Co-Authored-By:` trailer.
-- Before commit: templates render for both OSes, shellcheck clean, `gitleaks` clean.
+- Before commit: `scripts/check.sh` passes.
