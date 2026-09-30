@@ -1,0 +1,7 @@
+# mc merges this file with its built-in defaults. Keep only changed keys here.
+# auto_save_setup=false stops mc from rewriting this file on exit.
+# To keep a change from the Options menu, use "Save setup", then
+# run "chezmoi re-add ~/.config/mc/ini" and remove the default keys.
+[Midnight-Commander]
+auto_save_setup=false
+skin=solarized-dark
