@@ -23,7 +23,7 @@ packages:
       - sd
       - hexyl
       - dust
-      - duf
+      - dysk
       - ouch
       - midnight-commander
       # processes

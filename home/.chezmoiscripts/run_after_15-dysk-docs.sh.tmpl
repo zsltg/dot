@@ -1,0 +1,32 @@
+#!/bin/bash
+# Install the man page and zsh completion of dysk. The Homebrew formula does not
+# install them, but the release archive has them.
+# This script runs on each "chezmoi apply", but it downloads only when the dysk version changes.
+set -euo pipefail
+{{ template "brew-env" . }}
+eval "$("$BREW" shellenv)"
+
+command -v dysk >/dev/null 2>&1 || exit 0
+version=$(dysk --version | awk '{print $2}')
+stamp="$HOME/.local/state/dysk-docs-version"
+if [ "$(cat "$stamp" 2>/dev/null)" = "$version" ]; then
+  exit 0
+fi
+
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+url="https://github.com/Canop/dysk/releases/download/v$version/dysk_$version.zip"
+if ! curl -fsSL --retry 3 -o "$tmp/dysk.zip" "$url"; then
+  echo "dysk: cannot download the release archive $version. Skipped." >&2
+  exit 0
+fi
+
+unzip -q -o "$tmp/dysk.zip" man/dysk.1 completion/_dysk -d "$tmp"
+# BSD install (macOS) has no -D option. Make the directories first.
+mkdir -p "$HOME/.local/share/man/man1" "$HOME/.local/share/zsh/site-functions" "$(dirname "$stamp")"
+install -m 644 "$tmp/man/dysk.1" "$HOME/.local/share/man/man1/dysk.1"
+install -m 644 "$tmp/completion/_dysk" "$HOME/.local/share/zsh/site-functions/_dysk"
+echo "$version" > "$stamp"
+
+# A new completion file is available. Make zsh build its completion cache again.
+rm -f "$HOME/.cache/zsh/zcompdump"
