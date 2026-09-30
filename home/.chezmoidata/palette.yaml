@@ -1,9 +1,9 @@
 # Color palettes for all tools. "theme" selects the palette.
 # To use an other palette on one machine, set it in ~/.config/chezmoi/chezmoi.toml:
 #   [data]
-#       theme = "solarized"
+#       theme = "selenized"
 # Then run "chezmoi apply". The config data has priority over this file.
-theme: selenized
+theme: solarized
 
 # Each palette has:
 #   colors:  hex values by role. All palettes have bg_0 (background), bg_1
