@@ -1,7 +1,8 @@
 onboarding = false
 
 [theme]
-name = "solarized"
+# "terminal" uses the terminal palette (see .chezmoidata/palette.yaml).
+name = "terminal"
 auto_switch = false
 
 [ui]

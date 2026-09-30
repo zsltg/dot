@@ -1,0 +1,61 @@
+-- solarized-osaka with the colors of .chezmoidata/palette.yaml
+-- (Selenized with the Solarized background).
+return {
+    "craftzdog/solarized-osaka.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+        require("solarized-osaka").setup({
+            on_colors = function(c)
+                -- Base colors. osaka calculates the float, popup, sidebar and
+                -- status line colors before this function, so set them here too.
+                c.base04, c.bg = "{{ .palette.bg_0 }}", "{{ .palette.bg_0 }}"
+                c.bg_float, c.bg_popup, c.bg_sidebar = c.bg, c.bg, c.bg
+                c.base03, c.bg_highlight, c.bg_statusline = "{{ .palette.bg_1 }}", "{{ .palette.bg_1 }}", "{{ .palette.bg_1 }}"
+                c.base02, c.border = "{{ .palette.bg_2 }}", "{{ .palette.bg_2 }}"
+                c.base01, c.base00 = "{{ .palette.dim_0 }}", "{{ .palette.dim_0 }}"
+                c.base0, c.fg, c.fg_float = "{{ .palette.fg_0 }}", "{{ .palette.fg_0 }}", "{{ .palette.fg_0 }}"
+                c.base1 = "{{ .palette.fg_1 }}"
+                -- Accents. The groups use the plain name and the 500 shade.
+{{- range list "red" "green" "yellow" "blue" "magenta" "cyan" "orange" "violet" }}
+                c.{{ . }}, c.{{ . }}500 = "{{ index $.palette . }}", "{{ index $.palette . }}"
+{{- end }}
+                c.error, c.warning, c.info, c.hint, c.todo = c.red, c.yellow, c.blue, c.cyan, c.violet
+            end,
+            on_highlights = function(hl, c)
+                -- Default
+                hl.NormalFloat = {
+                    bg = c.base02,
+                }
+                hl.LineNr = {
+                    fg = c.base01,
+                }
+                -- which-key: same background as the status line
+                hl.WhichKeyNormal = {
+                    fg = c.base0,
+                    bg = c.bg_statusline,
+                }
+                hl.WhichKeyBorder = {
+                    fg = c.base02,
+                    bg = c.bg_statusline,
+                }
+                hl.WhichKeyTitle = {
+                    fg = c.base1,
+                    bg = c.bg_statusline,
+                }
+                -- blink.cmp
+                hl.BlinkCmpSignatureHelpActiveParameter = {
+                    fg = c.base2,
+                    bold = true,
+                }
+                -- Telescope: no background, default colors
+                hl.TelescopeNormal = {}
+                hl.TelescopeBorder = {}
+                hl.TelescopePreviewTitle = {}
+                hl.TelescopeResultsTitle = {}
+            end,
+        })
+        vim.cmd("colorscheme solarized-osaka")
+    end,
+}

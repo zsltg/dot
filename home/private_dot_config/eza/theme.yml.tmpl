@@ -1,0 +1,107 @@
+# Theme for eza. Colors come from .chezmoidata/palette.yaml
+# (Selenized with the Solarized background).
+# The file uses the eza-themes structure.
+
+colourful: true
+
+filekinds:
+  normal: {foreground: "{{ .palette.fg_0 }}"}
+  directory: {foreground: "{{ .palette.blue }}"}
+  symlink: {foreground: "{{ .palette.cyan }}"}
+  pipe: {foreground: "{{ .palette.fg_1 }}"}
+  block_device: {foreground: "{{ .palette.orange }}"}
+  char_device: {foreground: "{{ .palette.orange }}"}
+  socket: {foreground: "{{ .palette.violet }}"}
+  special: {foreground: "{{ .palette.magenta }}"}
+  executable: {foreground: "{{ .palette.green }}"}
+  mount_point: {foreground: "{{ .palette.yellow }}"}
+
+perms:
+  user_read: {foreground: "{{ .palette.fg_0 }}"}
+  user_write: {foreground: "{{ .palette.yellow }}"}
+  user_execute_file: {foreground: "{{ .palette.green }}"}
+  user_execute_other: {foreground: "{{ .palette.green }}"}
+  group_read: {foreground: "{{ .palette.fg_0 }}"}
+  group_write: {foreground: "{{ .palette.yellow }}"}
+  group_execute: {foreground: "{{ .palette.green }}"}
+  other_read: {foreground: "{{ .palette.fg_1 }}"}
+  other_write: {foreground: "{{ .palette.yellow }}"}
+  other_execute: {foreground: "{{ .palette.green }}"}
+  special_user_file: {foreground: "{{ .palette.magenta }}"}
+  special_other: {foreground: "{{ .palette.dim_0 }}"}
+
+attribute: {foreground: "{{ .palette.fg_1 }}"}
+
+size:
+  major: {foreground: "{{ .palette.fg_1 }}"}
+  minor: {foreground: "{{ .palette.cyan }}"}
+  number_byte: {foreground: "{{ .palette.fg_0 }}"}
+  number_kilo: {foreground: "{{ .palette.fg_0 }}"}
+  number_mega: {foreground: "{{ .palette.blue }}"}
+  number_giga: {foreground: "{{ .palette.magenta }}"}
+  number_huge: {foreground: "{{ .palette.magenta }}"}
+  unit_byte: {foreground: "{{ .palette.fg_1 }}"}
+  unit_kilo: {foreground: "{{ .palette.blue }}"}
+  unit_mega: {foreground: "{{ .palette.magenta }}"}
+  unit_giga: {foreground: "{{ .palette.magenta }}"}
+  unit_huge: {foreground: "{{ .palette.yellow }}"}
+
+users:
+  user_you: {foreground: "{{ .palette.fg_0 }}"}
+  user_root: {foreground: "{{ .palette.red }}"}
+  user_other: {foreground: "{{ .palette.magenta }}"}
+  group_yours: {foreground: "{{ .palette.fg_0 }}"}
+  group_other: {foreground: "{{ .palette.dim_0 }}"}
+  group_root: {foreground: "{{ .palette.red }}"}
+
+links:
+  normal: {foreground: "{{ .palette.cyan }}"}
+  multi_link_file: {foreground: "{{ .palette.yellow }}"}
+
+git:
+  new: {foreground: "{{ .palette.green }}"}
+  modified: {foreground: "{{ .palette.yellow }}"}
+  deleted: {foreground: "{{ .palette.red }}"}
+  renamed: {foreground: "{{ .palette.blue }}"}
+  typechange: {foreground: "{{ .palette.magenta }}"}
+  ignored: {foreground: "{{ .palette.bg_1 }}"}
+  conflicted: {foreground: "{{ .palette.orange }}"}
+
+git_repo:
+  branch_main: {foreground: "{{ .palette.fg_0 }}"}
+  branch_other: {foreground: "{{ .palette.magenta }}"}
+  git_clean: {foreground: "{{ .palette.green }}"}
+  git_dirty: {foreground: "{{ .palette.red }}"}
+
+security_context:
+  colon: {foreground: "{{ .palette.dim_0 }}"}
+  user: {foreground: "{{ .palette.fg_0 }}"}
+  role: {foreground: "{{ .palette.magenta }}"}
+  typ: {foreground: "{{ .palette.bg_1 }}"}
+  range: {foreground: "{{ .palette.magenta }}"}
+
+file_type:
+  image: {foreground: "{{ .palette.yellow }}"}
+  video: {foreground: "{{ .palette.red }}"}
+  music: {foreground: "{{ .palette.green }}"}
+  lossless: {foreground: "{{ .palette.cyan }}"}
+  crypto: {foreground: "{{ .palette.dim_0 }}"}
+  document: {foreground: "{{ .palette.fg_0 }}"}
+  compressed: {foreground: "{{ .palette.magenta }}"}
+  temp: {foreground: "{{ .palette.orange }}"}
+  compiled: {foreground: "{{ .palette.blue }}"}
+  build: {foreground: "{{ .palette.dim_0 }}"}
+  source: {foreground: "{{ .palette.blue }}"}
+
+punctuation: {foreground: "{{ .palette.dim_0 }}"}
+date: {foreground: "{{ .palette.yellow }}"}
+inode: {foreground: "{{ .palette.fg_1 }}"}
+blocks: {foreground: "{{ .palette.dim_0 }}"}
+header: {foreground: "{{ .palette.fg_0 }}"}
+octal: {foreground: "{{ .palette.cyan }}"}
+flags: {foreground: "{{ .palette.magenta }}"}
+symlink_path: {foreground: "{{ .palette.cyan }}"}
+control_char: {foreground: "{{ .palette.blue }}"}
+broken_symlink: {foreground: "{{ .palette.red }}"}
+broken_path_overlay: {foreground: "{{ .palette.dim_0 }}"}
+

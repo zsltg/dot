@@ -1,11 +1,11 @@
 #!/bin/bash
-# Rebuild the caches that read files from the dotfiles.
-# bat theme hash: {{ include "private_dot_config/bat/themes/SolarizedDarkPatched.tmTheme" | sha256sum }}
+# Update the bat and font caches.
 set -euo pipefail
 {{ template "brew-env" . }}
 eval "$("$BREW" shellenv)"
 
-bat cache --build
+# bat uses only its built-in themes and syntaxes. Remove an old custom cache.
+bat cache --clear
 {{- if eq .chezmoi.os "linux" }}
 fc-cache -f "$HOME/.local/share/fonts"
 {{- end }}

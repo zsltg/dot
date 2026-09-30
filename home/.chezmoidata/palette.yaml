@@ -1,0 +1,33 @@
+# Color palette for all tools: Selenized with the Solarized dark background.
+#
+# The values come from the Selenized generator
+# (https://github.com/jan-warchol/selenized, utils/palettes/selenized_base.py):
+#   generate_palette(background=(15, -12, -12), foreground=(75, -5, -2))
+# The background is CIELAB (15, -12, -12), which is Solarized base03 (#002b36).
+# Selenized dark uses (23, -12, -12). The other colors use the dark foreground.
+#
+# Terminal slots (ANSI 0-15):
+#   0 bg_1, 1-6 red green yellow blue magenta cyan, 7 dim_0,
+#   8 bg_2, 9-14 br_red .. br_cyan, 15 fg_1.
+# orange and violet have no terminal slot. Use them only as hex values.
+palette:
+  bg_0: "#002b36"
+  bg_1: "#003946"
+  bg_2: "#234d58"
+  dim_0: "#6b8287"
+  fg_0: "#adbcbc"
+  fg_1: "#cedddd"
+  red: "#f3504b"
+  green: "#73b636"
+  yellow: "#dbb32d"
+  blue: "#3e8ff0"
+  magenta: "#ee72bb"
+  cyan: "#40c6b8"
+  orange: "#e98245"
+  violet: "#aa84e6"
+  br_red: "#ff6259"
+  br_green: "#83c746"
+  br_yellow: "#edc33f"
+  br_blue: "#539fff"
+  br_magenta: "#ff82cb"
+  br_cyan: "#54d7c8"
