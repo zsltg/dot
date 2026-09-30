@@ -64,8 +64,8 @@ packages:
       - mise
       - uv
       - cargo-binstall
+    # Alacritty: run_after_60-alacritty.sh builds it. The cask is disabled.
     cask_darwin:
-      - alacritty
       - font-sauce-code-pro-nerd-font
     mise:
       node: lts

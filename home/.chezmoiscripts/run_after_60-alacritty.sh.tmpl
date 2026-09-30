@@ -1,0 +1,64 @@
+#!/bin/bash
+# Build the latest Alacritty release. Homebrew has no Alacritty for Linux, and
+# its macOS cask is disabled because the app does not pass the Gatekeeper check.
+# Also install the terminfo, man pages and zsh completion, and on Linux the
+# desktop entry and icon.
+# This script runs on each "chezmoi apply", but it builds only when a new release exists.
+set -euo pipefail
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# A token raises the GitHub API rate limit, for example in CI.
+auth=()
+if [ -n "${GITHUB_TOKEN:-}" ]; then
+  auth=(-H "Authorization: Bearer $GITHUB_TOKEN")
+fi
+# ${auth[@]+...}: bash 3.2 (macOS) treats an empty array as unset under "set -u".
+tag=$(curl -fsSL ${auth[@]+"${auth[@]}"} https://api.github.com/repos/alacritty/alacritty/releases/latest \
+  | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p') || true
+if [ -z "${tag:-}" ]; then
+  echo "alacritty: cannot get the latest release. Skipped." >&2
+  exit 0
+fi
+if command -v alacritty >/dev/null 2>&1 && [ "v$(alacritty --version | awk '{print $2}')" = "$tag" ]; then
+  exit 0
+fi
+
+echo "alacritty: building $tag"
+{{- if eq .chezmoi.os "linux" }}
+sudo apt-get install -y cmake g++ pkg-config libfontconfig1-dev libxcb-xfixes0-dev \
+  libxkbcommon-dev python3 scdoc desktop-file-utils gzip
+{{- else if eq .chezmoi.os "darwin" }}
+{{ template "brew-env" . }}
+eval "$("$BREW" shellenv)"
+brew install --quiet scdoc
+{{- end }}
+
+src=$(mktemp -d)
+trap 'rm -rf "$src"' EXIT
+git clone --quiet --depth 1 --branch "$tag" https://github.com/alacritty/alacritty.git "$src"
+cd "$src"
+
+{{- if eq .chezmoi.os "linux" }}
+cargo build --release --locked
+sudo install -m 755 target/release/alacritty /usr/local/bin/alacritty
+sudo install -Dm 644 extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+sudo desktop-file-install extra/linux/Alacritty.desktop
+sudo update-desktop-database
+{{- else if eq .chezmoi.os "darwin" }}
+make app
+rm -rf /Applications/Alacritty.app
+cp -R target/release/osx/Alacritty.app /Applications/
+mkdir -p "$HOME/.local/bin"
+ln -sfn /Applications/Alacritty.app/Contents/MacOS/alacritty "$HOME/.local/bin/alacritty"
+{{- end }}
+sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
+
+for scd in extra/man/*.scd; do
+  page=$(basename "$scd" .scd)
+  section=${page##*.}
+  sudo install -d "/usr/local/share/man/man$section"
+  scdoc < "$scd" | gzip -c | sudo tee "/usr/local/share/man/man$section/$page.gz" >/dev/null
+done
+
+mkdir -p "$HOME/.local/share/zsh/site-functions"
+install -m 644 extra/completions/_alacritty "$HOME/.local/share/zsh/site-functions/_alacritty"

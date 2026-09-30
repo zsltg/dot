@@ -27,7 +27,7 @@ On macOS, the first run can stop and ask you to install the Xcode Command Line T
 - **mise** installs node, ruby and go, and the tools that Homebrew does not have (`cargo:`, `go:`, `npm:`, `github:`, `pipx:` backends).
 - **rustup** installs Rust.
 - **antidote** loads the zsh plugins in `~/.zsh_plugins.txt`. These are some Oh My Zsh libraries and plugins, zsh-autosuggestions and zsh-syntax-highlighting.
-- **Alacritty** comes from a Homebrew cask on macOS. On Linux, a script builds the latest release and installs its terminfo, desktop entry, man pages and completion.
+- **Alacritty**: a script builds the latest release on Linux and macOS, because Homebrew has no Alacritty for Linux and disabled the macOS cask. The script also installs the terminfo, man pages and completion, and on Linux the desktop entry. On macOS it copies `Alacritty.app` to `/Applications`.
 - **SauceCodePro Nerd Font Mono** comes from a Homebrew cask on macOS. On Linux, chezmoi downloads it to `~/.local/share/fonts`.
 
 The package list is in `home/.chezmoidata/packages.yaml`. Add or remove a tool there, then run `chezmoi apply`. The install script runs again when the list changes.
@@ -172,7 +172,7 @@ Each entry shows the command name, with a link to the source repository of the t
 
 ### Other installs
 
-- [alacritty](https://github.com/alacritty/alacritty) (macOS: Homebrew cask, Linux: source build): Runs a fast terminal emulator with GPU rendering.
+- [alacritty](https://github.com/alacritty/alacritty) (source build): Runs a fast terminal emulator with GPU rendering.
 - [nerd-fonts](https://github.com/ryanoasis/nerd-fonts): Adds the Source Code Pro font with Nerd Font icons for the terminal.
 - [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh): Gives some zsh libraries and plugins that antidote loads, without the framework.
 - [rustup](https://github.com/rust-lang/rustup): Installs and updates the Rust toolchain.
