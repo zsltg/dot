@@ -25,6 +25,7 @@ packages:
       - dust
       - duf
       - ouch
+      - midnight-commander
       # processes
       - bottom
       - witr
