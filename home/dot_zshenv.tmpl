@@ -17,4 +17,4 @@ export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/ssh-agent.socket"
 {{- end }}
 
 # Machine-specific settings and secrets. This file is not in the dotfiles repo.
-[[ -r $HOME/.zshenv.local ]] && source $HOME/.zshenv.local
+if [[ -r $HOME/.zshenv.local ]]; then source $HOME/.zshenv.local; fi

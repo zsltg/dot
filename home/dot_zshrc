@@ -31,4 +31,4 @@ done
 unset f
 
 # Machine-specific settings. This file is not in the dotfiles repo.
-[[ -r $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
+if [[ -r $HOME/.zshrc.local ]]; then source $HOME/.zshrc.local; fi
