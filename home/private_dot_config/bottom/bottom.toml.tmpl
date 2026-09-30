@@ -1,0 +1,43 @@
+{{- $c := (index .palettes .theme).colors -}}
+# bottom (btm) settings. Colors come from the selected palette in
+# .chezmoidata/palette.yaml. The default colors use terminal slots. The border
+# color "gray" is slot 7, which is the almost white base2 in Solarized.
+# For all options, see https://bottom.pages.dev/stable/configuration/config-file/
+
+[styles.cpu]
+all_entry_color = "{{ $c.green }}"
+avg_entry_color = "{{ $c.red }}"
+cpu_core_colors = ["{{ $c.magenta }}", "{{ $c.yellow }}", "{{ $c.cyan }}", "{{ $c.green }}", "{{ $c.blue }}", "{{ $c.orange }}", "{{ $c.violet }}", "{{ $c.red }}"]
+
+[styles.memory]
+ram_color = "{{ $c.magenta }}"
+cache_color = "{{ $c.orange }}"
+swap_color = "{{ $c.yellow }}"
+arc_color = "{{ $c.cyan }}"
+gpu_colors = ["{{ $c.blue }}", "{{ $c.red }}", "{{ $c.cyan }}", "{{ $c.green }}", "{{ $c.violet }}", "{{ $c.orange }}"]
+
+[styles.network]
+rx_color = "{{ $c.magenta }}"
+tx_color = "{{ $c.yellow }}"
+rx_total_color = "{{ $c.cyan }}"
+tx_total_color = "{{ $c.green }}"
+
+[styles.battery]
+high_battery_color = "{{ $c.green }}"
+medium_battery_color = "{{ $c.yellow }}"
+low_battery_color = "{{ $c.red }}"
+
+[styles.tables]
+headers = { color = "{{ $c.blue }}", bold = true }
+
+[styles.graphs]
+graph_color = "{{ $c.dim_0 }}"
+legend_text = { color = "{{ $c.fg_0 }}" }
+
+[styles.widgets]
+border_color = "{{ $c.dim_0 }}"
+selected_border_color = "{{ $c.blue }}"
+widget_title = { color = "{{ $c.fg_0 }}" }
+text = { color = "{{ $c.fg_0 }}" }
+selected_text = { color = "{{ $c.bg_0 }}", bg_color = "{{ $c.blue }}" }
+disabled_text = { color = "{{ $c.dim_0 }}" }

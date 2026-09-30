@@ -8,7 +8,7 @@ Dotfiles and tool installs for Linux (Ubuntu) and macOS, managed with chezmoi. O
 - mise: node, ruby, go, and tools Homebrew lacks or ships badly (`cargo:`, `go:`, `npm:`, `ubi:`, `pipx:`). Shims on PATH, no `mise activate`.
 - rustup: Rust toolchain. apt: system deps, docker-ce, Alacritty build deps (Linux).
 - zsh: antidote loads selected Oh My Zsh libs and plugins, zsh-autosuggestions, zsh-syntax-highlighting (`home/dot_zsh_plugins.txt`). No OMZ framework. starship prompt, zoxide, native fzf.
-- Theme: one palette everywhere (Alacritty, tmux, nvim, bat, delta, eza, zsh-autosuggestions, herdr, mc, jqp). Default Solarized dark. Option `selenized` (Selenized with Solarized dark background): set `theme` in `~/.config/chezmoi/chezmoi.toml` data. Font: SauceCodePro Nerd Font Mono.
+- Theme: one palette everywhere (Alacritty, tmux, nvim, bat, delta, eza, zsh-autosuggestions, herdr, mc, jqp, bottom). Default Solarized dark. Option `selenized` (Selenized with Solarized dark background): set `theme` in `~/.config/chezmoi/chezmoi.toml` data. Font: SauceCodePro Nerd Font Mono.
 ## Layout
 - `home/.chezmoidata/packages.yaml`: single source of truth for installed tools, per group and per OS. Brewfile and mise config render from it.
 - `home/.chezmoidata/palette.yaml`: single source of truth for colors and tool theme names, per palette. Every template renders for each palette.
