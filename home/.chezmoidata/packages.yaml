@@ -5,17 +5,10 @@
 # brew_darwin: Homebrew formulas, macOS only.
 # cask_darwin: Homebrew casks, macOS only.
 # mise:        tools that brew does not have (or has an old version of).
-#              Written into ~/.config/mise/config.toml.
+#              Written into ~/.config/mise/config.toml. A value is a
+#              version, or a table of mise tool options.
 # mise_linux:  the same, Linux only.
 # mise_linux_amd64: the same, Linux x86_64 only.
-#
-# TODO: mise removes the "ubi:" backend in 2027.1.0. Move the "ubi:" tools to
-# "github:" before then. On mise 2026.9 the "github:" backend fails for two of them:
-# - biodiff: the release zip has no execute bits, and "github:" does not set them.
-# - lightpanda: "latest" selects the "nightly" release, and its checksum
-#   changes each day.
-# bfif works with "github:". Move all three together, because one "ubi:" tool
-# keeps the deprecation warning.
 packages:
   core:
     brew:
@@ -82,13 +75,16 @@ packages:
       # brew has an old fq release
       "go:github.com/wader/fq": latest
       # the brew formula needs llvm (1.5 GB) to build
-      "ubi:8051Enthusiast/biodiff": latest
+      "github:8051Enthusiast/biodiff":
+        version: latest
+        # the release zip has no execute bits; rename_exe sets them
+        rename_exe: { biodiff: biodiff, git-biodiff: git-biodiff }
       "pipx:markitdown[all]": latest
       # the brew formula needs apache-arrow and llvm; the PyPI wheels do not
       "pipx:harlequin": latest
     mise_linux_amd64:
       # upstream has no macOS or arm64 build
-      "ubi:trapexit/bfif": latest
+      "github:trapexit/bfif": latest
 
   dev:
     brew:
@@ -136,7 +132,9 @@ packages:
       "cargo:mdbook-mermaid": latest
       "go:github.com/git-chglog/git-chglog/cmd/git-chglog": latest
       "go:github.com/go-gremlins/gremlins/cmd/gremlins": latest
-      "ubi:lightpanda-io/browser[exe=lightpanda]": latest
+      # "0", not latest: upstream marks the "nightly" release as latest, and
+      # mise then installs nightly. Change to "latest" or "1" after 1.0.
+      "github:lightpanda-io/browser": { version: "0", bin: lightpanda }
 
   ai:
     brew:

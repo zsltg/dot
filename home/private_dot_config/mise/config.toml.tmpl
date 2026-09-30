@@ -1,23 +1,18 @@
 # Language runtimes, and tools that Homebrew does not have.
 # The list comes from ~/.local/share/chezmoi/home/.chezmoidata/packages.yaml.
-[tools]
 {{- $groups := list "core" }}
 {{- if .dev }}{{ $groups = append $groups "dev" }}{{ end }}
 {{- if .ai }}{{ $groups = append $groups "ai" }}{{ end }}
+{{- $keys := list "mise" }}
+{{- if eq .chezmoi.os "linux" }}{{ $keys = append $keys "mise_linux" }}{{ end }}
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}{{ $keys = append $keys "mise_linux_amd64" }}{{ end }}
+{{- $tools := dict }}
 {{- range $groups }}
 {{-   $g := index $.packages . }}
-{{-   range $tool, $version := (index $g "mise") }}
-{{ $tool | quote }} = {{ $version | quote }}
-{{-   end }}
-{{-   if eq $.chezmoi.os "linux" }}
-{{-     range $tool, $version := (index $g "mise_linux") }}
-{{ $tool | quote }} = {{ $version | quote }}
-{{-     end }}
-{{-   end }}
-{{-   if and (eq $.chezmoi.os "linux") (eq $.chezmoi.arch "amd64") }}
-{{-     range $tool, $version := (index $g "mise_linux_amd64") }}
-{{ $tool | quote }} = {{ $version | quote }}
+{{-   range $keys }}
+{{-     range $tool, $value := (index $g .) }}
+{{-       $_ := set $tools $tool $value }}
 {{-     end }}
 {{-   end }}
 {{- end }}
-
+{{ dict "tools" $tools | toToml }}

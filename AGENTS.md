@@ -5,7 +5,7 @@ Dotfiles and tool installs for Linux (Ubuntu) and macOS, managed with chezmoi. O
 ## Tech Stack
 - chezmoi: source state in `home/` (see `.chezmoiroot`). Templates `*.tmpl`, one-time prompts in `home/.chezmoi.toml.tmpl` (name, email, groups `dev`, `ai`, `docker`, detected `vm`).
 - Homebrew on both OSes: CLI tools, latest versions, man pages, completions. Casks on macOS only.
-- mise: node, ruby, go, and tools Homebrew lacks or ships badly (`cargo:`, `go:`, `npm:`, `ubi:`, `pipx:`). Shims on PATH, no `mise activate`.
+- mise: node, ruby, go, and tools Homebrew lacks or ships badly (`cargo:`, `go:`, `npm:`, `github:`, `pipx:`). Shims on PATH, no `mise activate`.
 - rustup: Rust toolchain. apt: system deps, docker-ce, Alacritty build deps (Linux).
 - zsh: antidote loads selected Oh My Zsh libs and plugins, zsh-autosuggestions, zsh-syntax-highlighting (`home/dot_zsh_plugins.txt`). No OMZ framework. starship prompt, zoxide, native fzf.
 - Theme: one palette everywhere (Alacritty, tmux, nvim, bat, delta, eza, zsh-autosuggestions, herdr, mc, jqp, bottom). Default `solarized-bright` (Solarized dark, bright accents in the bright terminal slots). Options `solarized`, `selenized`: set `theme` in `~/.config/chezmoi/chezmoi.toml` data. Font: SauceCodePro Nerd Font Mono.

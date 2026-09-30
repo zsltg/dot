@@ -24,7 +24,7 @@ On macOS, the first run can stop and ask you to install the Xcode Command Line T
 ## What installs what
 
 - **Homebrew** installs the CLI tools on Linux and macOS. It installs their man pages and zsh completions too.
-- **mise** installs node, ruby and go, and the tools that Homebrew does not have (`cargo:`, `go:`, `npm:`, `ubi:`, `pipx:` backends).
+- **mise** installs node, ruby and go, and the tools that Homebrew does not have (`cargo:`, `go:`, `npm:`, `github:`, `pipx:` backends).
 - **rustup** installs Rust.
 - **antidote** loads the zsh plugins in `~/.zsh_plugins.txt`. These are some Oh My Zsh libraries and plugins, zsh-autosuggestions and zsh-syntax-highlighting.
 - **Alacritty** comes from a Homebrew cask on macOS. On Linux, a script builds the latest release and installs its terminfo, desktop entry, man pages and completion.
