@@ -1,33 +1,81 @@
-# Color palette for all tools: Selenized with the Solarized dark background.
-#
-# The values come from the Selenized generator
-# (https://github.com/jan-warchol/selenized, utils/palettes/selenized_base.py):
-#   generate_palette(background=(15, -12, -12), foreground=(75, -5, -2))
-# The background is CIELAB (15, -12, -12), which is Solarized base03 (#002b36).
-# Selenized dark uses (23, -12, -12). The other colors use the dark foreground.
-#
-# Terminal slots (ANSI 0-15):
-#   0 bg_1, 1-6 red green yellow blue magenta cyan, 7 dim_0,
-#   8 bg_2, 9-14 br_red .. br_cyan, 15 fg_1.
-# orange and violet have no terminal slot. Use them only as hex values.
-palette:
-  bg_0: "#002b36"
-  bg_1: "#003946"
-  bg_2: "#234d58"
-  dim_0: "#6b8287"
-  fg_0: "#adbcbc"
-  fg_1: "#cedddd"
-  red: "#f3504b"
-  green: "#73b636"
-  yellow: "#dbb32d"
-  blue: "#3e8ff0"
-  magenta: "#ee72bb"
-  cyan: "#40c6b8"
-  orange: "#e98245"
-  violet: "#aa84e6"
-  br_red: "#ff6259"
-  br_green: "#83c746"
-  br_yellow: "#edc33f"
-  br_blue: "#539fff"
-  br_magenta: "#ff82cb"
-  br_cyan: "#54d7c8"
+# Color palettes for all tools. "theme" selects the palette.
+# To use an other palette on one machine, set it in ~/.config/chezmoi/chezmoi.toml:
+#   [data]
+#       theme = "solarized"
+# Then run "chezmoi apply". The config data has priority over this file.
+theme: selenized
+
+# Each palette has:
+#   colors:  hex values by role. All palettes have bg_0 (background), bg_1
+#            (status bars, selection), dim_0 and dim_1 (comments, secondary
+#            text), fg_0 (text), fg_1 (emphasized text) and the accents red,
+#            green, yellow, blue, magenta, cyan, orange, violet.
+#   ansi:    the color role of each terminal slot, 0-15.
+#   bat_theme, delta_theme, herdr_theme, mc_skin: theme names for these tools.
+#   nvim_colors: true sets the palette colors in solarized-osaka. false keeps
+#            the solarized-osaka colors.
+palettes:
+  # Selenized with the Solarized dark background. The values come from the
+  # Selenized generator (https://github.com/jan-warchol/selenized,
+  # utils/palettes/selenized_base.py):
+  #   generate_palette(background=(15, -12, -12), foreground=(75, -5, -2))
+  # The background is CIELAB (15, -12, -12), which is Solarized base03.
+  # Selenized dark uses (23, -12, -12). orange and violet have no terminal slot.
+  selenized:
+    colors:
+      bg_0: "#002b36"
+      bg_1: "#003946"
+      bg_2: "#234d58"
+      dim_0: "#6b8287"
+      dim_1: "#6b8287"
+      fg_0: "#adbcbc"
+      fg_1: "#cedddd"
+      red: "#f3504b"
+      green: "#73b636"
+      yellow: "#dbb32d"
+      blue: "#3e8ff0"
+      magenta: "#ee72bb"
+      cyan: "#40c6b8"
+      orange: "#e98245"
+      violet: "#aa84e6"
+      br_red: "#ff6259"
+      br_green: "#83c746"
+      br_yellow: "#edc33f"
+      br_blue: "#539fff"
+      br_magenta: "#ff82cb"
+      br_cyan: "#54d7c8"
+    ansi: [bg_1, red, green, yellow, blue, magenta, cyan, dim_0,
+           bg_2, br_red, br_green, br_yellow, br_blue, br_magenta, br_cyan, fg_1]
+    bat_theme: ansi
+    delta_theme: ansi
+    herdr_theme: terminal
+    mc_skin: selenized
+    nvim_colors: true
+
+  # Solarized dark (https://ethanschoonover.com/solarized). The bright terminal
+  # slots hold the gray tones and orange and violet.
+  solarized:
+    colors:
+      bg_0: "#002b36" # base03
+      bg_1: "#073642" # base02
+      dim_0: "#586e75" # base01
+      dim_1: "#657b83" # base00
+      fg_0: "#839496" # base0
+      fg_1: "#93a1a1" # base1
+      base2: "#eee8d5"
+      base3: "#fdf6e3"
+      red: "#dc322f"
+      green: "#859900"
+      yellow: "#b58900"
+      blue: "#268bd2"
+      magenta: "#d33682"
+      cyan: "#2aa198"
+      orange: "#cb4b16"
+      violet: "#6c71c4"
+    ansi: [bg_1, red, green, yellow, blue, magenta, cyan, base2,
+           bg_0, orange, dim_0, dim_1, fg_0, violet, fg_1, base3]
+    bat_theme: SolarizedDarkPatched
+    delta_theme: Solarized (dark)
+    herdr_theme: solarized
+    mc_skin: solarized-dark
+    nvim_colors: false

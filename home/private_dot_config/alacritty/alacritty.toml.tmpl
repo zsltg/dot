@@ -1,3 +1,4 @@
+{{- $p := index .palettes .theme -}}
 [env]
   TERM = "xterm-256color"
 
@@ -5,30 +6,30 @@
 normal = { family = "SauceCodePro Nerd Font Mono", style = "Regular" }
 size = 12
 
-# Selenized with the Solarized background (see .chezmoidata/palette.yaml).
+# Colors of the selected palette (see .chezmoidata/palette.yaml).
 [colors.primary]
-background = "0x{{ .palette.bg_0 | trimPrefix "#" }}"
-foreground = "0x{{ .palette.fg_0 | trimPrefix "#" }}"
+background = "0x{{ $p.colors.bg_0 | trimPrefix "#" }}"
+foreground = "0x{{ $p.colors.fg_0 | trimPrefix "#" }}"
 
 [colors.normal]
-black   = "0x{{ .palette.bg_1 | trimPrefix "#" }}"
-red     = "0x{{ .palette.red | trimPrefix "#" }}"
-green   = "0x{{ .palette.green | trimPrefix "#" }}"
-yellow  = "0x{{ .palette.yellow | trimPrefix "#" }}"
-blue    = "0x{{ .palette.blue | trimPrefix "#" }}"
-magenta = "0x{{ .palette.magenta | trimPrefix "#" }}"
-cyan    = "0x{{ .palette.cyan | trimPrefix "#" }}"
-white   = "0x{{ .palette.dim_0 | trimPrefix "#" }}"
+black   = "0x{{ index $p.colors (index $p.ansi 0) | trimPrefix "#" }}"
+red     = "0x{{ index $p.colors (index $p.ansi 1) | trimPrefix "#" }}"
+green   = "0x{{ index $p.colors (index $p.ansi 2) | trimPrefix "#" }}"
+yellow  = "0x{{ index $p.colors (index $p.ansi 3) | trimPrefix "#" }}"
+blue    = "0x{{ index $p.colors (index $p.ansi 4) | trimPrefix "#" }}"
+magenta = "0x{{ index $p.colors (index $p.ansi 5) | trimPrefix "#" }}"
+cyan    = "0x{{ index $p.colors (index $p.ansi 6) | trimPrefix "#" }}"
+white   = "0x{{ index $p.colors (index $p.ansi 7) | trimPrefix "#" }}"
 
 [colors.bright]
-black   = "0x{{ .palette.bg_2 | trimPrefix "#" }}"
-red     = "0x{{ .palette.br_red | trimPrefix "#" }}"
-green   = "0x{{ .palette.br_green | trimPrefix "#" }}"
-yellow  = "0x{{ .palette.br_yellow | trimPrefix "#" }}"
-blue    = "0x{{ .palette.br_blue | trimPrefix "#" }}"
-magenta = "0x{{ .palette.br_magenta | trimPrefix "#" }}"
-cyan    = "0x{{ .palette.br_cyan | trimPrefix "#" }}"
-white   = "0x{{ .palette.fg_1 | trimPrefix "#" }}"
+black   = "0x{{ index $p.colors (index $p.ansi 8) | trimPrefix "#" }}"
+red     = "0x{{ index $p.colors (index $p.ansi 9) | trimPrefix "#" }}"
+green   = "0x{{ index $p.colors (index $p.ansi 10) | trimPrefix "#" }}"
+yellow  = "0x{{ index $p.colors (index $p.ansi 11) | trimPrefix "#" }}"
+blue    = "0x{{ index $p.colors (index $p.ansi 12) | trimPrefix "#" }}"
+magenta = "0x{{ index $p.colors (index $p.ansi 13) | trimPrefix "#" }}"
+cyan    = "0x{{ index $p.colors (index $p.ansi 14) | trimPrefix "#" }}"
+white   = "0x{{ index $p.colors (index $p.ansi 15) | trimPrefix "#" }}"
 
 [keyboard]
 bindings = [

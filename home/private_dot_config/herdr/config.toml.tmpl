@@ -1,8 +1,8 @@
 onboarding = false
 
 [theme]
-# "terminal" uses the terminal palette (see .chezmoidata/palette.yaml).
-name = "terminal"
+# The theme of the selected palette (see .chezmoidata/palette.yaml).
+name = "{{ (index .palettes .theme).herdr_theme }}"
 auto_switch = false
 
 [ui]

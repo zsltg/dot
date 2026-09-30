@@ -1,107 +1,107 @@
-# Theme for eza. Colors come from .chezmoidata/palette.yaml
-# (Selenized with the Solarized background).
-# The file uses the eza-themes structure.
+{{- $c := (index .palettes .theme).colors -}}
+# Theme for eza. Colors come from the selected palette in
+# .chezmoidata/palette.yaml. The file uses the eza-themes structure.
 
 colourful: true
 
 filekinds:
-  normal: {foreground: "{{ .palette.fg_0 }}"}
-  directory: {foreground: "{{ .palette.blue }}"}
-  symlink: {foreground: "{{ .palette.cyan }}"}
-  pipe: {foreground: "{{ .palette.fg_1 }}"}
-  block_device: {foreground: "{{ .palette.orange }}"}
-  char_device: {foreground: "{{ .palette.orange }}"}
-  socket: {foreground: "{{ .palette.violet }}"}
-  special: {foreground: "{{ .palette.magenta }}"}
-  executable: {foreground: "{{ .palette.green }}"}
-  mount_point: {foreground: "{{ .palette.yellow }}"}
+  normal: {foreground: "{{ $c.fg_0 }}"}
+  directory: {foreground: "{{ $c.blue }}"}
+  symlink: {foreground: "{{ $c.cyan }}"}
+  pipe: {foreground: "{{ $c.fg_1 }}"}
+  block_device: {foreground: "{{ $c.orange }}"}
+  char_device: {foreground: "{{ $c.orange }}"}
+  socket: {foreground: "{{ $c.violet }}"}
+  special: {foreground: "{{ $c.magenta }}"}
+  executable: {foreground: "{{ $c.green }}"}
+  mount_point: {foreground: "{{ $c.yellow }}"}
 
 perms:
-  user_read: {foreground: "{{ .palette.fg_0 }}"}
-  user_write: {foreground: "{{ .palette.yellow }}"}
-  user_execute_file: {foreground: "{{ .palette.green }}"}
-  user_execute_other: {foreground: "{{ .palette.green }}"}
-  group_read: {foreground: "{{ .palette.fg_0 }}"}
-  group_write: {foreground: "{{ .palette.yellow }}"}
-  group_execute: {foreground: "{{ .palette.green }}"}
-  other_read: {foreground: "{{ .palette.fg_1 }}"}
-  other_write: {foreground: "{{ .palette.yellow }}"}
-  other_execute: {foreground: "{{ .palette.green }}"}
-  special_user_file: {foreground: "{{ .palette.magenta }}"}
-  special_other: {foreground: "{{ .palette.dim_0 }}"}
+  user_read: {foreground: "{{ $c.fg_0 }}"}
+  user_write: {foreground: "{{ $c.yellow }}"}
+  user_execute_file: {foreground: "{{ $c.green }}"}
+  user_execute_other: {foreground: "{{ $c.green }}"}
+  group_read: {foreground: "{{ $c.fg_0 }}"}
+  group_write: {foreground: "{{ $c.yellow }}"}
+  group_execute: {foreground: "{{ $c.green }}"}
+  other_read: {foreground: "{{ $c.fg_1 }}"}
+  other_write: {foreground: "{{ $c.yellow }}"}
+  other_execute: {foreground: "{{ $c.green }}"}
+  special_user_file: {foreground: "{{ $c.magenta }}"}
+  special_other: {foreground: "{{ $c.dim_1 }}"}
 
-attribute: {foreground: "{{ .palette.fg_1 }}"}
+attribute: {foreground: "{{ $c.fg_1 }}"}
 
 size:
-  major: {foreground: "{{ .palette.fg_1 }}"}
-  minor: {foreground: "{{ .palette.cyan }}"}
-  number_byte: {foreground: "{{ .palette.fg_0 }}"}
-  number_kilo: {foreground: "{{ .palette.fg_0 }}"}
-  number_mega: {foreground: "{{ .palette.blue }}"}
-  number_giga: {foreground: "{{ .palette.magenta }}"}
-  number_huge: {foreground: "{{ .palette.magenta }}"}
-  unit_byte: {foreground: "{{ .palette.fg_1 }}"}
-  unit_kilo: {foreground: "{{ .palette.blue }}"}
-  unit_mega: {foreground: "{{ .palette.magenta }}"}
-  unit_giga: {foreground: "{{ .palette.magenta }}"}
-  unit_huge: {foreground: "{{ .palette.yellow }}"}
+  major: {foreground: "{{ $c.fg_1 }}"}
+  minor: {foreground: "{{ $c.cyan }}"}
+  number_byte: {foreground: "{{ $c.fg_0 }}"}
+  number_kilo: {foreground: "{{ $c.fg_0 }}"}
+  number_mega: {foreground: "{{ $c.blue }}"}
+  number_giga: {foreground: "{{ $c.magenta }}"}
+  number_huge: {foreground: "{{ $c.magenta }}"}
+  unit_byte: {foreground: "{{ $c.fg_1 }}"}
+  unit_kilo: {foreground: "{{ $c.blue }}"}
+  unit_mega: {foreground: "{{ $c.magenta }}"}
+  unit_giga: {foreground: "{{ $c.magenta }}"}
+  unit_huge: {foreground: "{{ $c.yellow }}"}
 
 users:
-  user_you: {foreground: "{{ .palette.fg_0 }}"}
-  user_root: {foreground: "{{ .palette.red }}"}
-  user_other: {foreground: "{{ .palette.magenta }}"}
-  group_yours: {foreground: "{{ .palette.fg_0 }}"}
-  group_other: {foreground: "{{ .palette.dim_0 }}"}
-  group_root: {foreground: "{{ .palette.red }}"}
+  user_you: {foreground: "{{ $c.fg_0 }}"}
+  user_root: {foreground: "{{ $c.red }}"}
+  user_other: {foreground: "{{ $c.magenta }}"}
+  group_yours: {foreground: "{{ $c.fg_0 }}"}
+  group_other: {foreground: "{{ $c.dim_1 }}"}
+  group_root: {foreground: "{{ $c.red }}"}
 
 links:
-  normal: {foreground: "{{ .palette.cyan }}"}
-  multi_link_file: {foreground: "{{ .palette.yellow }}"}
+  normal: {foreground: "{{ $c.cyan }}"}
+  multi_link_file: {foreground: "{{ $c.yellow }}"}
 
 git:
-  new: {foreground: "{{ .palette.green }}"}
-  modified: {foreground: "{{ .palette.yellow }}"}
-  deleted: {foreground: "{{ .palette.red }}"}
-  renamed: {foreground: "{{ .palette.blue }}"}
-  typechange: {foreground: "{{ .palette.magenta }}"}
-  ignored: {foreground: "{{ .palette.bg_1 }}"}
-  conflicted: {foreground: "{{ .palette.orange }}"}
+  new: {foreground: "{{ $c.green }}"}
+  modified: {foreground: "{{ $c.yellow }}"}
+  deleted: {foreground: "{{ $c.red }}"}
+  renamed: {foreground: "{{ $c.blue }}"}
+  typechange: {foreground: "{{ $c.magenta }}"}
+  ignored: {foreground: "{{ $c.bg_1 }}"}
+  conflicted: {foreground: "{{ $c.orange }}"}
 
 git_repo:
-  branch_main: {foreground: "{{ .palette.fg_0 }}"}
-  branch_other: {foreground: "{{ .palette.magenta }}"}
-  git_clean: {foreground: "{{ .palette.green }}"}
-  git_dirty: {foreground: "{{ .palette.red }}"}
+  branch_main: {foreground: "{{ $c.fg_0 }}"}
+  branch_other: {foreground: "{{ $c.magenta }}"}
+  git_clean: {foreground: "{{ $c.green }}"}
+  git_dirty: {foreground: "{{ $c.red }}"}
 
 security_context:
-  colon: {foreground: "{{ .palette.dim_0 }}"}
-  user: {foreground: "{{ .palette.fg_0 }}"}
-  role: {foreground: "{{ .palette.magenta }}"}
-  typ: {foreground: "{{ .palette.bg_1 }}"}
-  range: {foreground: "{{ .palette.magenta }}"}
+  colon: {foreground: "{{ $c.dim_1 }}"}
+  user: {foreground: "{{ $c.fg_0 }}"}
+  role: {foreground: "{{ $c.magenta }}"}
+  typ: {foreground: "{{ $c.bg_1 }}"}
+  range: {foreground: "{{ $c.magenta }}"}
 
 file_type:
-  image: {foreground: "{{ .palette.yellow }}"}
-  video: {foreground: "{{ .palette.red }}"}
-  music: {foreground: "{{ .palette.green }}"}
-  lossless: {foreground: "{{ .palette.cyan }}"}
-  crypto: {foreground: "{{ .palette.dim_0 }}"}
-  document: {foreground: "{{ .palette.fg_0 }}"}
-  compressed: {foreground: "{{ .palette.magenta }}"}
-  temp: {foreground: "{{ .palette.orange }}"}
-  compiled: {foreground: "{{ .palette.blue }}"}
-  build: {foreground: "{{ .palette.dim_0 }}"}
-  source: {foreground: "{{ .palette.blue }}"}
+  image: {foreground: "{{ $c.yellow }}"}
+  video: {foreground: "{{ $c.red }}"}
+  music: {foreground: "{{ $c.green }}"}
+  lossless: {foreground: "{{ $c.cyan }}"}
+  crypto: {foreground: "{{ $c.dim_1 }}"}
+  document: {foreground: "{{ $c.fg_0 }}"}
+  compressed: {foreground: "{{ $c.magenta }}"}
+  temp: {foreground: "{{ $c.orange }}"}
+  compiled: {foreground: "{{ $c.blue }}"}
+  build: {foreground: "{{ $c.dim_1 }}"}
+  source: {foreground: "{{ $c.blue }}"}
 
-punctuation: {foreground: "{{ .palette.dim_0 }}"}
-date: {foreground: "{{ .palette.yellow }}"}
-inode: {foreground: "{{ .palette.fg_1 }}"}
-blocks: {foreground: "{{ .palette.dim_0 }}"}
-header: {foreground: "{{ .palette.fg_0 }}"}
-octal: {foreground: "{{ .palette.cyan }}"}
-flags: {foreground: "{{ .palette.magenta }}"}
-symlink_path: {foreground: "{{ .palette.cyan }}"}
-control_char: {foreground: "{{ .palette.blue }}"}
-broken_symlink: {foreground: "{{ .palette.red }}"}
-broken_path_overlay: {foreground: "{{ .palette.dim_0 }}"}
+punctuation: {foreground: "{{ $c.dim_1 }}"}
+date: {foreground: "{{ $c.yellow }}"}
+inode: {foreground: "{{ $c.fg_1 }}"}
+blocks: {foreground: "{{ $c.dim_0 }}"}
+header: {foreground: "{{ $c.fg_0 }}"}
+octal: {foreground: "{{ $c.cyan }}"}
+flags: {foreground: "{{ $c.magenta }}"}
+symlink_path: {foreground: "{{ $c.cyan }}"}
+control_char: {foreground: "{{ $c.blue }}"}
+broken_symlink: {foreground: "{{ $c.red }}"}
+broken_path_overlay: {foreground: "{{ $c.dim_1 }}"}
 

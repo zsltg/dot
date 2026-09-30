@@ -4,8 +4,8 @@
 
 # Specify desired highlighting theme (e.g. "TwoDark"). Run `bat --list-themes`
 # for a list of all available themes
-# "ansi" uses the terminal palette (see .chezmoidata/palette.yaml).
---theme="ansi"
+# The theme of the selected palette (see .chezmoidata/palette.yaml).
+--theme="{{ (index .palettes .theme).bat_theme }}"
 
 # Enable this to use italic text on the terminal. This is not supported on all
 # terminal emulators (like tmux, by default):

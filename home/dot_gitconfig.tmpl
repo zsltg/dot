@@ -17,7 +17,7 @@
 	file-decoration-style = none
 	hunk-header-decoration-style = none
 	commit-decoration-style = none
-	syntax-theme = ansi
+	syntax-theme = {{ (index .palettes .theme).delta_theme }}
 [merge]
 	conflictStyle = zdiff3
 {{- if .dev }}

@@ -27,3 +27,7 @@ sourceDir = {{ .chezmoi.workingTree | quote }}
     ai = {{ $ai }}
     docker = {{ $docker }}
     vm = {{ $vm }}
+{{- if hasKey . "theme" }}
+    # Palette from .chezmoidata/palette.yaml. Set by hand, kept on "chezmoi init".
+    theme = {{ .theme | quote }}
+{{- end }}

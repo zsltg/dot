@@ -10,15 +10,15 @@ bind-key -n F12 select-window -n
 # Shift+Del sends Ctrl-X (the delete key of the fzf history widget).
 bind-key -n S-DC send-keys C-x
 
-# Selenized with the Solarized background (see .chezmoidata/palette.yaml).
-# black is bg_1, white is dim_0. orange has no terminal slot, so it is a hex value.
-set -g status-style fg=yellow,bg=black
-setw -g window-status-style fg=default,bg=default
-setw -g window-status-current-style "fg={{ .palette.orange }},bg=default"
-set -g pane-border-style fg=black
-set -g pane-active-border-style fg=white
-set -g message-style "fg={{ .palette.orange }},bg=black"
-set -g display-panes-active-colour "{{ .palette.orange }}"
-set -g display-panes-colour blue
-setw -g clock-mode-colour green
-setw -g window-status-bell-style fg=black,bg=red
+{{ $c := (index .palettes .theme).colors -}}
+# Colors of the selected palette (see .chezmoidata/palette.yaml).
+set -g status-style "fg={{ $c.yellow }},bg={{ $c.bg_1 }}"
+setw -g window-status-style "fg={{ $c.fg_0 }},bg=default"
+setw -g window-status-current-style "fg={{ $c.orange }},bg=default"
+set -g pane-border-style "fg={{ $c.bg_1 }}"
+set -g pane-active-border-style "fg={{ $c.dim_0 }}"
+set -g message-style "fg={{ $c.orange }},bg={{ $c.bg_1 }}"
+set -g display-panes-active-colour "{{ $c.orange }}"
+set -g display-panes-colour "{{ $c.blue }}"
+setw -g clock-mode-colour "{{ $c.green }}"
+setw -g window-status-bell-style "fg={{ $c.bg_1 }},bg={{ $c.red }}"
