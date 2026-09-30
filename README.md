@@ -5,7 +5,7 @@ Dotfiles and tool installs for Linux (Ubuntu) and macOS, managed with [chezmoi](
 ## Install on a new machine
 
 ```sh
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin init --apply <github-user>/dot
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin init --apply zsltg/dot
 ```
 
 chezmoi asks these questions once. It keeps the answers in `~/.config/chezmoi/chezmoi.toml`.
