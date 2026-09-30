@@ -1,0 +1,94 @@
+# Install the dotfiles on a new machine for each OS and arch, then examine the
+# result with scripts/install-test.sh. Linux runs in a clean ubuntu:24.04
+# container. macOS (arm64) runs on the runner after the job removes its Homebrew.
+# The primary remote is a self-hosted git server, so each job runs only on the
+# GitHub mirror. Actions are pinned by commit SHA.
+name: Install
+
+on:
+  push:
+    branches: [main]
+    paths: &paths
+      - home/.chezmoi*
+      - home/.chezmoidata/**
+      - home/.chezmoiscripts/**
+      - home/.chezmoitemplates/**
+      - home/dot_z*
+      - home/private_dot_config/zsh/**
+      - home/private_dot_config/nvim/**
+      - home/.lazy-lock.json
+      - scripts/install-test.sh
+      - .github/workflows/install.yml
+  pull_request:
+    paths: *paths
+  # The repo installs the latest versions, so a new upstream release can break
+  # the install without a change here.
+  schedule:
+    - cron: '23 4 * * 1' # Mondays 04:23 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: install-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux:
+    if: github.server_url == 'https://github.com'
+    name: linux ${{ matrix.arch }} ${{ matrix.groups }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { arch: amd64, runner: ubuntu-24.04, groups: full }
+          - { arch: amd64, runner: ubuntu-24.04, groups: minimal }
+          - { arch: arm64, runner: ubuntu-24.04-arm, groups: full }
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 120
+    container: ubuntu:24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # A new machine: a user with passwordless sudo, and the tools that the
+      # README install command needs.
+      - name: Create the user
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends sudo curl ca-certificates git
+          useradd --create-home --shell /bin/bash dev
+          echo 'dev ALL=(ALL) NOPASSWD:ALL' >/etc/sudoers.d/dev
+          cp -R "$GITHUB_WORKSPACE" /home/dev/dot
+          chown -R dev:dev /home/dev/dot
+      - name: Install and test
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # mise GitHub API rate limit
+          INSTALL_GROUPS: ${{ matrix.groups }}
+        run: sudo -u dev -H --preserve-env=GITHUB_TOKEN /home/dev/dot/scripts/install-test.sh "$INSTALL_GROUPS"
+
+  # Only arm64: Homebrew does not install on a new Intel Mac.
+  macos:
+    if: github.server_url == 'https://github.com'
+    name: macos arm64 full
+    runs-on: macos-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # The runner image has Homebrew with many packages. Remove it, so that
+      # the test installs Homebrew and every package as on a new Mac.
+      - name: Remove Homebrew
+        run: |
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/uninstall.sh" https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh
+          NONINTERACTIVE=1 /bin/bash "$RUNNER_TEMP/uninstall.sh" --force
+          sudo rm -rf /opt/homebrew /usr/local/Homebrew /usr/local/Cellar /usr/local/Caskroom
+      - name: Install and test
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # mise GitHub API rate limit
+          # chsh asks for the password of the runner user. The login shell is
+          # not part of this test.
+          SHELL: /bin/zsh
+        run: scripts/install-test.sh full

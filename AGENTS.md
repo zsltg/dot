@@ -22,7 +22,7 @@ Dotfiles and tool installs for Linux (Ubuntu) and macOS, managed with chezmoi. O
 - Render for the other OS: `chezmoi --override-data '{"chezmoi":{"os":"darwin","arch":"arm64"}}' execute-template < <file>`.
 - Check: `scripts/check.sh`. Renders target state per OS, arch, palette, groups on/off. `bash -n` and `shellcheck -S warning` rendered scripts, `zsh -n` zsh files, shellcheck repo scripts, actionlint, zizmor, gitleaks. CI runs it (`.github/workflows/lint.yml`).
 - Secrets: `gitleaks dir .`. Pre-commit hook: `git config core.hooksPath .githooks` (runs `gitleaks git --staged`).
-- End-to-end: clean `ubuntu:24.04` container, non-root user with passwordless sudo, preset `~/.config/chezmoi/chezmoi.toml` data, `chezmoi init --source <repo> --apply --no-tty`. Second `chezmoi apply` must be a no-op. Docker builds need `--network host` on this host.
+- End-to-end: `scripts/install-test.sh full|minimal` on a machine you can discard, as non-root user with passwordless sudo. Installs from repo, second apply must be a no-op, all brew and mise tools present, zsh and nvim start with no output, zsh startup under 400 ms. CI runs it (`.github/workflows/install.yml`): `ubuntu:24.04` container amd64 and arm64, macOS arm64 (Homebrew does not install on new Intel Macs). Local Docker runs need `--network host` on this host.
 - Startup budget: `zsh -i -c exit` near 100 ms. Profile with `zmodload zsh/zprof` before regressing it.
 ## Conventions
 - Add or remove a tool: edit `packages.yaml` and the `README.md` tool list (command name, repo link, one sentence). Prefer brew formula. Use mise when brew lacks it, lags upstream, or drags heavy deps (llvm, apache-arrow). Record the reason as a comment next to the entry.

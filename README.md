@@ -214,9 +214,11 @@ scripts/check.sh
 
 It needs the dev group tools. Set `GH_TOKEN` to let zizmor also run its online audits.
 
+The Install workflow installs the dotfiles on a new Ubuntu container (amd64 and arm64) and on macOS (arm64) with `scripts/install-test.sh`. The test fails when a second `chezmoi apply` has changes to make, when a tool is missing, or when zsh or Neovim writes errors on startup. It runs when the install files change and once a week.
+
 ## Repo layout
 
 - `home/`: the chezmoi source state (see `.chezmoiroot`).
 - `home/.chezmoiscripts/`: install scripts, in the order of their numbers.
-- `scripts/check.sh`: the repo checks. `.github/workflows/`: the CI workflows.
+- `scripts/check.sh`, `scripts/install-test.sh`: the repo checks and the install test. `.github/workflows/`: the CI workflows.
 - `home/.lazy-lock.json`: the plugin versions for Neovim. `~/.config/nvim/lazy-lock.json` is a symlink to this file, so `:Lazy update` changes it in the repo. Commit the change.
