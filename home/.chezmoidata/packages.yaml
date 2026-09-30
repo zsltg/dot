@@ -57,6 +57,8 @@ packages:
       - fzf
       - zoxide
       - neovim
+      # nvim-treesitter (main branch) builds the parsers with it
+      - tree-sitter-cli
       - tmux
       - mise
       - uv
