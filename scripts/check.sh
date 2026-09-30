@@ -46,7 +46,6 @@ step() {
 
 render_all() {
   local palettes os_arch os arch palette groups data kind target contents dir
-  local -A seen=()
   palettes="$(chezmoi_src execute-template '{{ range $name, $_ := .palettes }}{{ $name }} {{ end }}')"
   mkdir -p "$tmp/scripts" "$tmp/zsh"
   for os_arch in linux/amd64 linux/arm64 darwin/amd64 darwin/arm64; do
@@ -58,14 +57,12 @@ render_all() {
         echo "    $os/$arch palette=$palette groups=$groups"
         chezmoi_src --override-data "$data" execute-template <"$repo/home/.chezmoiexternal.toml.tmpl" >/dev/null || return 1
         chezmoi_src --override-data "$data" dump --format json >"$tmp/dump.json" || return 1
-        # Keep one copy of each rendered script and zsh file. The directory
-        # name tells which render it comes from.
+        # Write each rendered script and zsh file. The directory name tells
+        # which render it comes from.
         while IFS=$'\t' read -r kind target contents; do
-          [[ -z "${seen[$contents]:-}" ]] || continue
-          seen[$contents]=1
           dir="$tmp/$kind/$os-$arch-$palette-$groups"
           mkdir -p "$dir"
-          base64 -d <<<"$contents" >"$dir/${target//[.\/]/_}"
+          printf '%s' "$contents" | base64 -d >"$dir/${target//[.\/]/_}"
         done < <(jq -r 'to_entries[]
           | (if .value.type == "script" then "scripts"
              elif .value.type == "file" and (.key | test("(\\.zsh|^\\.zshrc|^\\.zshenv|^\\.zprofile)$")) then "zsh"
@@ -74,6 +71,9 @@ render_all() {
       done
     done
   done
+  # Keep one copy of each file content, so that each finding shows only once.
+  # macOS has bash 3.2, which has no associative arrays: use cksum and awk.
+  cksum "$tmp"/scripts/*/* "$tmp"/zsh/*/* | awk 'seen[$1 " " $2]++ { print $3 }' | xargs rm -f
 }
 
 lint_scripts() {
@@ -94,9 +94,7 @@ lint_zsh() {
 }
 
 lint_repo_scripts() {
-  local files=()
-  mapfile -t files < <(git -C "$repo" ls-files scripts .githooks)
-  (cd "$repo" && shellcheck -S warning "${files[@]}")
+  (cd "$repo" && git ls-files -z scripts .githooks | xargs -0 shellcheck -S warning)
 }
 
 step "render templates" render_all
