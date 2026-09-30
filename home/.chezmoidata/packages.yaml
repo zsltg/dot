@@ -89,6 +89,9 @@ packages:
       - taplo
       - cloc
       - gitleaks
+      - shellcheck
+      - actionlint
+      - zizmor
       - golangci-lint
       - gofumpt
       - goimports

@@ -109,6 +109,7 @@ Each entry shows the command name, with a link to the source repository of the t
 ### dev group
 
 - [act](https://github.com/nektos/act): Runs GitHub Actions workflows on your computer.
+- [actionlint](https://github.com/rhysd/actionlint): Finds errors in GitHub Actions workflow files.
 - [agg](https://github.com/asciinema/agg): Converts asciinema recordings to GIF files.
 - [asciinema](https://github.com/asciinema/asciinema): Records terminal sessions and shares them.
 - [ast-grep](https://github.com/ast-grep/ast-grep): Searches, lints and rewrites code by its syntax tree.
@@ -143,12 +144,14 @@ Each entry shows the command name, with a link to the source repository of the t
 - [pnpm](https://github.com/pnpm/pnpm): Installs JavaScript packages fast and with less disk space.
 - [ruff](https://github.com/astral-sh/ruff): Lints and formats Python code, fast.
 - [semgrep](https://github.com/semgrep/semgrep): Finds bugs and security problems in code with pattern rules.
+- [shellcheck](https://github.com/koalaman/shellcheck): Finds bugs and unsafe code in shell scripts.
 - [svu](https://github.com/caarlos0/svu): Calculates the next semantic version from git tags and commits.
 - [syft](https://github.com/anchore/syft): Makes a software bill of materials (SBOM) from container images and file systems.
 - [taplo](https://github.com/tamasfe/taplo): Formats and validates TOML files.
 - [typescript-language-server](https://github.com/typescript-language-server/typescript-language-server): Gives editors TypeScript and JavaScript language features through LSP.
 - [wasm-pack](https://github.com/wasm-bindgen/wasm-pack): Builds Rust code into WebAssembly packages for JavaScript.
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp): Downloads audio and video from many websites.
+- [zizmor](https://github.com/zizmorcore/zizmor): Finds security problems in GitHub Actions workflows.
 
 ### ai group
 
