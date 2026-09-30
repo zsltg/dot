@@ -6,6 +6,13 @@
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 
+# man pages with bat colors (bat-extras). These are the values of
+# "batman --export-env", set directly: the command takes about 40 ms.
+if (( $+commands[batman] )); then
+  export MANPAGER="env BATMAN_IS_BEING_MANPAGER=yes bash $commands[batman]"
+  export MANROFFOPT=-c
+fi
+
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg={{ (index .palettes .theme).colors.dim_0 }}'
 
 # zsh-syntax-highlighting: no underline. These are the defaults that use
