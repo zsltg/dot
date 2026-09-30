@@ -1,9 +1,9 @@
 # Color palettes for all tools. "theme" selects the palette.
 # To use an other palette on one machine, set it in ~/.config/chezmoi/chezmoi.toml:
 #   [data]
-#       theme = "selenized"
+#       theme = "solarized"
 # Then run "chezmoi apply". The config data has priority over this file.
-theme: solarized
+theme: solarized-bright
 
 # Each palette has:
 #   colors:  hex values by role. All palettes have bg_0 (background), bg_1
@@ -78,4 +78,43 @@ palettes:
     delta_theme: Solarized (dark)
     herdr_theme: solarized
     mc_skin: solarized-dark
+    nvim_colors: false
+
+  # Solarized dark with bright accents in the bright terminal slots. The
+  # colors are the same as in solarized. Only the terminal slots change:
+  #   7 fg_1 (not base2, which is almost white), 8 dim_0 (not bg_0, which
+  #   makes "bright black" text invisible), 9-14 bright accents, 15 base2.
+  # Many tools print in the bright slots and expect brighter accents there.
+  # The bright accents have the a* and b* of the accent in CIELAB, with
+  # L* 8 higher (the Selenized method).
+  solarized-bright:
+    colors:
+      bg_0: "#002b36" # base03
+      bg_1: "#073642" # base02
+      dim_0: "#586e75" # base01
+      dim_1: "#657b83" # base00
+      fg_0: "#839496" # base0
+      fg_1: "#93a1a1" # base1
+      base2: "#eee8d5"
+      red: "#dc322f"
+      green: "#859900"
+      yellow: "#b58900"
+      blue: "#268bd2"
+      magenta: "#d33682"
+      cyan: "#2aa198"
+      orange: "#cb4b16"
+      violet: "#6c71c4"
+      br_red: "#f64c41"
+      br_green: "#9bae25"
+      br_yellow: "#cc9e24"
+      br_blue: "#46a0e9"
+      br_magenta: "#eb4f97"
+      br_cyan: "#46b7ad"
+    ansi: [bg_1, red, green, yellow, blue, magenta, cyan, fg_1,
+           dim_0, br_red, br_green, br_yellow, br_blue, br_magenta, br_cyan, base2]
+    bat_theme: SolarizedDarkPatched
+    delta_theme: Solarized (dark)
+    herdr_theme: solarized
+    # The solarized-dark skin needs the gray tones in the bright slots.
+    mc_skin: selenized
     nvim_colors: false
