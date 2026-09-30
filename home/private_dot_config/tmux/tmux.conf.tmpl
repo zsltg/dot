@@ -1,7 +1,10 @@
 set -g history-limit 10000
 set -g mouse on
 set -g repeat-time 0
-set -g extended-keys on
+# With extended-keys on, tmux 3.5 and later ask the outer terminal for extended
+# keys. herdr then sends kitty key events, also key release events, and typed
+# text becomes garbled (for example "h4;1:3u" for "h"). Keep it off.
+set -g extended-keys off
 set -ag terminal-overrides ",*:RGB"
 
 # F11 and F12 go to the previous and next window.
