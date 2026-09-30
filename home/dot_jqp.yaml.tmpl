@@ -1,0 +1,23 @@
+{{- $c := (index .palettes .theme).colors -}}
+# jqp settings. Colors come from the selected palette in .chezmoidata/palette.yaml.
+theme:
+  # Base theme. The overrides below replace its colors.
+  name: solarized-dark
+  # Interface colors.
+  styleOverrides:
+    primary: "{{ $c.blue }}"
+    secondary: "{{ $c.cyan }}"
+    inactive: "{{ $c.dim_0 }}"
+    success: "{{ $c.green }}"
+    error: "{{ $c.orange }}"
+  # JSON syntax colors, by chroma short token name.
+  chromaStyleOverrides:
+    bg: "{{ $c.fg_0 }} bg:{{ $c.bg_0 }}"
+    nt: "{{ $c.blue }}"
+    s: "{{ $c.cyan }}"
+    s2: "{{ $c.cyan }}"
+    m: "{{ $c.magenta }}"
+    mf: "{{ $c.magenta }}"
+    mi: "{{ $c.magenta }}"
+    kc: "{{ $c.orange }}"
+    p: "{{ $c.dim_1 }}"
