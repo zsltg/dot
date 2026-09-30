@@ -1,0 +1,34 @@
+# Interactive zsh. PATH and environment are in ~/.zshenv.
+
+ZSH_CACHE_DIR=$HOME/.cache/zsh
+[[ -d $ZSH_CACHE_DIR ]] || mkdir -p $ZSH_CACHE_DIR
+
+# Completion functions: user files first, then Homebrew formulas.
+fpath=($HOME/.local/share/zsh/site-functions $HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
+
+# compinit is slow when it checks all files. Do the full check once a day,
+# and use the cached dump at other times.
+autoload -Uz compinit
+() {
+  setopt local_options extended_glob
+  local dump=$ZSH_CACHE_DIR/zcompdump
+  if [[ ! -s $dump || -n $dump(#qN.mh+24) ]]; then
+    compinit -i -d $dump
+  else
+    compinit -C -d $dump
+  fi
+}
+
+# Plugins (see ~/.zsh_plugins.txt).
+if [[ -r $HOMEBREW_PREFIX/opt/antidote/share/antidote/antidote.zsh ]]; then
+  source $HOMEBREW_PREFIX/opt/antidote/share/antidote/antidote.zsh
+  antidote load
+fi
+
+for f in $HOME/.config/zsh/*.zsh(N); do
+  [[ $f == */path.zsh ]] || source $f
+done
+unset f
+
+# Machine-specific settings. This file is not in the dotfiles repo.
+[[ -r $HOME/.zshrc.local ]] && source $HOME/.zshrc.local

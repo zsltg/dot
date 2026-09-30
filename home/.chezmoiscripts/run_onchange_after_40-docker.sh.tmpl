@@ -1,0 +1,25 @@
+{{ if .docker -}}
+#!/bin/bash
+# Docker: docker-ce from the Docker apt repo on Linux, colima on macOS.
+set -euo pipefail
+
+{{ if eq .chezmoi.os "linux" -}}
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+codename=$(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $codename stable" \
+  | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo usermod -aG docker "$USER"
+{{- else if eq .chezmoi.os "darwin" -}}
+{{ template "brew-env" . }}
+eval "$("$BREW" shellenv)"
+# Let the docker CLI find the compose and buildx plugins from Homebrew.
+mkdir -p "$HOME/.docker/cli-plugins"
+ln -sfn "$HOMEBREW_PREFIX/opt/docker-compose/bin/docker-compose" "$HOME/.docker/cli-plugins/docker-compose"
+ln -sfn "$HOMEBREW_PREFIX/opt/docker-buildx/bin/docker-buildx" "$HOME/.docker/cli-plugins/docker-buildx"
+brew services start colima
+{{- end }}
+{{ end -}}

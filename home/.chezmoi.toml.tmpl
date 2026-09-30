@@ -1,0 +1,29 @@
+{{- /* chezmoi asks these questions once per machine and keeps the answers in ~/.config/chezmoi/chezmoi.toml. */ -}}
+{{- /* Name and email default to the values in the current git config, if there are any. */ -}}
+{{- $gitName := "" -}}
+{{- $gitEmail := "" -}}
+{{- if lookPath "git" -}}
+{{-   $gitName = output "sh" "-c" "git config --global user.name || true" | trim -}}
+{{-   $gitEmail = output "sh" "-c" "git config --global user.email || true" | trim -}}
+{{- end -}}
+{{- $name := promptStringOnce . "name" "Full name for git commits" $gitName -}}
+{{- $email := promptStringOnce . "email" "Email address for git commits" $gitEmail -}}
+{{- $dev := promptBoolOnce . "dev" "Install the dev tools (linters, cargo tools, pnpm, bun, deno, gh)" -}}
+{{- $ai := promptBoolOnce . "ai" "Install the AI tools (claude-code, codex, pi, herdr, crit)" -}}
+{{- $docker := promptBoolOnce . "docker" "Install Docker (docker-ce on Linux, colima on macOS)" -}}
+
+{{- $vm := false -}}
+{{- if and (eq .chezmoi.os "linux") (lookPath "systemd-detect-virt") -}}
+{{-   $vm = ne (output "sh" "-c" "systemd-detect-virt --vm || true" | trim) "none" -}}
+{{- end -}}
+
+# Remember where the source is, also when it is not ~/.local/share/chezmoi.
+sourceDir = {{ .chezmoi.workingTree | quote }}
+
+[data]
+    name = {{ $name | quote }}
+    email = {{ $email | quote }}
+    dev = {{ $dev }}
+    ai = {{ $ai }}
+    docker = {{ $docker }}
+    vm = {{ $vm }}

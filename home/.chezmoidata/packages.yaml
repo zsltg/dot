@@ -1,0 +1,148 @@
+# Tools to install, per group. Groups "dev", "ai" and "docker" are optional.
+# chezmoi asks once per machine (see .chezmoi.toml.tmpl).
+#
+# brew:        Homebrew formulas, on Linux and macOS.
+# brew_darwin: Homebrew formulas, macOS only.
+# cask_darwin: Homebrew casks, macOS only.
+# mise:        tools that brew does not have (or has an old version of).
+#              Written into ~/.config/mise/config.toml.
+# mise_linux:  the same, Linux only.
+# mise_linux_amd64: the same, Linux x86_64 only.
+packages:
+  core:
+    brew:
+      # files, search, diff
+      - fd
+      - bat
+      - bat-extras
+      - ripgrep
+      - ripgrep-all
+      - git-delta
+      - difftastic
+      - eza
+      - sd
+      - hexyl
+      - dust
+      - duf
+      - ouch
+      # processes
+      - bottom
+      - witr
+      - procs
+      # structured data
+      - jq
+      - jaq
+      - jqp
+      - fx
+      - jc
+      - gron
+      - jqfmt
+      - yq
+      - miller
+      - sq
+      # misc
+      - glow
+      - just
+      - magika
+      - dive
+      - httpie
+      - pandoc
+      - hyperfine
+      - tlrc
+      - croc
+      # shell, editor, runtimes
+      - antidote
+      - starship
+      - fzf
+      - zoxide
+      - neovim
+      - tmux
+      - mise
+      - uv
+      - cargo-binstall
+    cask_darwin:
+      - alacritty
+      - font-sauce-code-pro-nerd-font
+    mise:
+      node: lts
+      ruby: "3.3"
+      go: latest
+      "cargo:ck-search": latest
+      # brew has an old fq release
+      "go:github.com/wader/fq": latest
+      # the brew formula needs llvm (1.5 GB) to build
+      "ubi:8051Enthusiast/biodiff": latest
+      "pipx:markitdown[all]": latest
+      # the brew formula needs apache-arrow and llvm; the PyPI wheels do not
+      "pipx:harlequin": latest
+    mise_linux_amd64:
+      # upstream has no macOS or arm64 build
+      "ubi:trapexit/bfif": latest
+
+  dev:
+    brew:
+      - gh
+      - ast-grep
+      - taplo
+      - cloc
+      - gitleaks
+      - golangci-lint
+      - gofumpt
+      - goimports
+      - govulncheck
+      - osv-scanner
+      - syft
+      - semgrep
+      - git-filter-repo
+      - ccache
+      - cargo-deny
+      - cargo-llvm-cov
+      - cargo-insta
+      - cargo-mutants
+      - cargo-fuzz
+      - cargo-geiger
+      - cargo-auditable
+      - wasm-pack
+      - pnpm
+      - bun
+      - deno
+      - typescript-language-server
+      - dagger
+      - svu
+      - asciinema
+      - agg
+      - mdbook
+      - yt-dlp
+      - lazygit
+      - act
+      - ruff
+      - oha
+    mise:
+      "cargo:cargo-machete": latest
+      "cargo:mdbook-mermaid": latest
+      "go:github.com/git-chglog/git-chglog/cmd/git-chglog": latest
+      "go:github.com/go-gremlins/gremlins/cmd/gremlins": latest
+      "ubi:lightpanda-io/browser[exe=lightpanda]": latest
+
+  ai:
+    brew:
+      - herdr
+      - crit
+    cask_darwin:
+      - claude-code
+      - codex
+    mise:
+      "npm:@earendil-works/pi-coding-agent": latest
+      # caveman CLI: its Claude Code hooks run dist/native-hook-fast.js
+      "npm:@caveman-ai/cli": latest
+    mise_linux:
+      # macOS gets codex from the cask. claude-code on Linux uses its own
+      # installer (run_onchange_after_50-ai-linux.sh).
+      "npm:@openai/codex": latest
+
+  docker:
+    brew_darwin:
+      - colima
+      - docker
+      - docker-compose
+      - docker-buildx

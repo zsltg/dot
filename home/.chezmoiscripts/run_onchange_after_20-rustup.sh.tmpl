@@ -1,0 +1,14 @@
+#!/bin/bash
+# Install Rust with rustup (stable toolchain), and the zsh completions for rustup and cargo.
+set -euo pipefail
+
+if ! command -v rustup >/dev/null 2>&1 && [ ! -x "$HOME/.cargo/bin/rustup" ]; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+fi
+export PATH="$HOME/.cargo/bin:$PATH"
+rustup update stable
+
+completions="$HOME/.local/share/zsh/site-functions"
+mkdir -p "$completions"
+rustup completions zsh rustup > "$completions/_rustup"
+rustup completions zsh cargo > "$completions/_cargo"

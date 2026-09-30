@@ -1,0 +1,8 @@
+#!/bin/sh
+# Stop the commit when gitleaks finds a secret in the staged changes.
+# Enable this hook once per clone: git config core.hooksPath .githooks
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit: gitleaks is not installed. Install it (brew install gitleaks) and commit again." >&2
+  exit 1
+fi
+exec gitleaks git --staged --redact --no-banner

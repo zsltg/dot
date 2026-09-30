@@ -1,0 +1,20 @@
+# Environment for all zsh shells, also non-interactive ones.
+
+source $HOME/.config/zsh/path.zsh
+
+# Ubuntu runs compinit in /etc/zsh/zshrc. ~/.zshrc runs it faster with a cache.
+skip_global_compinit=1
+
+export EDITOR=nvim
+export VISUAL=nvim
+export DO_NOT_TRACK=1
+export CAVEMAN_TELEMETRY=0
+{{- if eq .chezmoi.os "linux" }}
+
+# Use the persistent ssh-agent from systemd --user (ssh-agent.service) in all
+# shells and tmux panes. Then a key added once is available everywhere.
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/ssh-agent.socket"
+{{- end }}
+
+# Machine-specific settings and secrets. This file is not in the dotfiles repo.
+[[ -r $HOME/.zshenv.local ]] && source $HOME/.zshenv.local

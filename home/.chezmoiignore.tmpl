@@ -1,0 +1,13 @@
+{{- if ne .chezmoi.os "linux" }}
+.config/systemd
+.config/environment.d
+{{- end }}
+{{- if not .vm }}
+.config/environment.d
+{{- end }}
+{{- if or (ne .chezmoi.os "darwin") (not .docker) }}
+.colima
+{{- end }}
+{{- if not .ai }}
+.config/herdr
+{{- end }}

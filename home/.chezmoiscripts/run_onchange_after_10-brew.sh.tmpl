@@ -1,0 +1,29 @@
+#!/bin/bash
+# Install the Homebrew packages of the enabled groups (see .chezmoidata/packages.yaml).
+# chezmoi runs this script again when the package list changes.
+set -euo pipefail
+{{ template "brew-env" . }}
+eval "$("$BREW" shellenv)"
+
+"$BREW" bundle --file=- <<'BREWFILE'
+{{- range (includeTemplate "groups" . | trim | splitList "\n") }}
+{{-   $g := index $.packages . }}
+{{-   range (index $g "brew") }}
+brew {{ . | quote }}
+{{-   end }}
+{{-   if eq $.chezmoi.os "darwin" }}
+{{-     range (index $g "brew_darwin") }}
+brew {{ . | quote }}
+{{-     end }}
+{{-     range (index $g "cask_darwin") }}
+cask {{ . | quote }}
+{{-     end }}
+{{-   end }}
+{{- end }}
+BREWFILE
+
+# Remove the downloaded bottles (about 1 GB).
+"$BREW" cleanup --prune=all
+
+# New completion files are available. Make zsh build its completion cache again.
+rm -f "$HOME/.cache/zsh/zcompdump"

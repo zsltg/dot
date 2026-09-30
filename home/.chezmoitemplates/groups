@@ -1,0 +1,6 @@
+{{- /* Prints the enabled package groups, one per line. */ -}}
+core
+{{ if .dev }}dev
+{{ end }}{{ if .ai }}ai
+{{ end }}{{ if .docker }}docker
+{{ end }}

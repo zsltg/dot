@@ -1,0 +1,9 @@
+{{- if eq .chezmoi.os "linux" }}
+# SauceCodePro Nerd Font Mono. On macOS the Homebrew cask installs it.
+[".local/share/fonts/SauceCodeProNerdFont"]
+    type = "archive"
+    url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.tar.xz"
+    exact = true
+    refreshPeriod = "720h"
+    include = ["*NerdFontMono-*.ttf"]
+{{- end }}

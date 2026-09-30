@@ -1,0 +1,8 @@
+{{ if and .ai (eq .chezmoi.os "linux") -}}
+#!/bin/bash
+# Claude Code on Linux: the native installer. It updates itself after this.
+set -euo pipefail
+if [ ! -x "$HOME/.local/bin/claude" ]; then
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
+{{ end -}}

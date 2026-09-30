@@ -1,0 +1,32 @@
+# PATH and related variables. Sourced by ~/.zshenv (all shells) and again by
+# ~/.zprofile, because /etc/zprofile on macOS changes the PATH order.
+typeset -U path fpath manpath
+
+{{- if eq .chezmoi.os "darwin" }}
+{{-   if eq .chezmoi.arch "arm64" }}
+export HOMEBREW_PREFIX=/opt/homebrew
+export HOMEBREW_REPOSITORY=/opt/homebrew
+{{-   else }}
+export HOMEBREW_PREFIX=/usr/local
+export HOMEBREW_REPOSITORY=/usr/local/Homebrew
+{{-   end }}
+{{- else }}
+export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+export HOMEBREW_REPOSITORY=/home/linuxbrew/.linuxbrew/Homebrew
+{{- end }}
+export HOMEBREW_CELLAR=$HOMEBREW_PREFIX/Cellar
+export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:"
+export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
+
+path=(
+  $HOME/.local/bin
+  $HOME/.local/share/mise/shims
+  $HOME/.cargo/bin
+  $HOME/go/bin
+  $HOMEBREW_PREFIX/bin
+  $HOMEBREW_PREFIX/sbin
+  $path
+)
+
+# ccache wrappers for gcc and clang (dev group).
+[[ -d $HOMEBREW_PREFIX/opt/ccache/libexec ]] && path=($HOMEBREW_PREFIX/opt/ccache/libexec $path)

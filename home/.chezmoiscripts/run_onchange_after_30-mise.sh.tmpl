@@ -1,0 +1,33 @@
+#!/bin/bash
+# Install the runtimes and tools in ~/.config/mise/config.toml.
+# config hash: {{ includeTemplate "private_dot_config/mise/config.toml.tmpl" . | sha256sum }}
+set -euo pipefail
+{{ template "brew-env" . }}
+eval "$("$BREW" shellenv)"
+export PATH="$HOME/.local/share/mise/shims:$HOME/.cargo/bin:$PATH"
+
+{{ if eq .chezmoi.os "linux" -}}
+# Build dependencies for Ruby (mise compiles it from source).
+sudo apt-get install -y libssl-dev libyaml-dev zlib1g-dev libffi-dev libreadline-dev libgmp-dev
+{{ end -}}
+
+# crates.io and GitHub are sometimes slow. Wait longer, and try again when a download fails.
+export MISE_FETCH_REMOTE_VERSIONS_TIMEOUT=60s
+retry() {
+  local n
+  for n in 1 2 3; do
+    "$@" && return 0
+    echo "mise: attempt $n failed. Trying again." >&2
+    sleep 5
+  done
+  return 1
+}
+
+# Install the runtimes first. The go:, npm: and cargo: tools need them.
+retry mise install --yes node go ruby
+mise reshim
+retry mise install --yes
+mise reshim
+
+# Remove the downloaded archives.
+mise cache clear

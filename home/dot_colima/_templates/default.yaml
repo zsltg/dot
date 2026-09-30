@@ -1,0 +1,7 @@
+# colima uses this file only when it makes a new VM ("colima start" the first
+# time). Change a running VM with "colima start --edit".
+cpu: 4
+memory: 8
+disk: 100
+vmType: vz
+mountType: virtiofs

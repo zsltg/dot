@@ -1,0 +1,30 @@
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+[core]
+	pager = delta
+	fsync = objects,derived-metadata,reference
+	fsyncMethod = batch
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	features = diff-so-fancy
+	line-numbers = true
+	hyperlinks = true
+	navigate = true
+	line-numbers-left-format = "{nm:>4} "
+	line-numbers-right-format = "{np:>4} "
+	file-decoration-style = none
+	hunk-header-decoration-style = none
+	commit-decoration-style = none
+	syntax-theme = Solarized (dark)
+[merge]
+	conflictStyle = zdiff3
+{{- if .dev }}
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
+{{- end }}

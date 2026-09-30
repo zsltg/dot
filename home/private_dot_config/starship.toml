@@ -1,0 +1,4 @@
+[ruby]
+detect_extensions = ['rb']
+detect_files = ['Gemfile', '.ruby-version']
+detect_folders = []

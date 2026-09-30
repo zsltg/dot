@@ -1,0 +1,19 @@
+#!/bin/bash
+# Make zsh the login shell. On Linux, also start the ssh-agent user service.
+set -euo pipefail
+
+zsh_path=$(command -v zsh)
+if [ "$(basename "${SHELL:-}")" != "zsh" ]; then
+{{- if eq .chezmoi.os "linux" }}
+  sudo chsh -s "$zsh_path" "$USER"
+{{- else }}
+  chsh -s "$zsh_path"
+{{- end }}
+fi
+{{- if eq .chezmoi.os "linux" }}
+
+if command -v systemctl >/dev/null 2>&1 && systemctl --user show-environment >/dev/null 2>&1; then
+  systemctl --user daemon-reload
+  systemctl --user enable --now ssh-agent.service
+fi
+{{- end }}

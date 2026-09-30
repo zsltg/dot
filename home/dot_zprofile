@@ -1,0 +1,3 @@
+# Login shells. On macOS, /etc/zprofile runs path_helper, which moves the
+# system directories to the front of PATH. Set our PATH order again.
+source $HOME/.config/zsh/path.zsh
