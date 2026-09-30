@@ -8,6 +8,14 @@
 #              Written into ~/.config/mise/config.toml.
 # mise_linux:  the same, Linux only.
 # mise_linux_amd64: the same, Linux x86_64 only.
+#
+# TODO: mise removes the "ubi:" backend in 2027.1.0. Move the "ubi:" tools to
+# "github:" before then. On mise 2026.9 the "github:" backend fails for two of them:
+# - biodiff: the release zip has no execute bits, and "github:" does not set them.
+# - lightpanda: "latest" selects the "nightly" release, and its checksum
+#   changes each day.
+# bfif works with "github:". Move all three together, because one "ubi:" tool
+# keeps the deprecation warning.
 packages:
   core:
     brew:
