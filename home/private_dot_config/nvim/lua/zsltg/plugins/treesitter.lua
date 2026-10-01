@@ -11,16 +11,32 @@ return {
 			-- Parsers to always install. The function does nothing for installed parsers.
 			treesitter.install({
 				"astro",
+				"bash",
 				"c",
+				"cpp",
+				"css",
+				"dockerfile",
+				"go",
 				"html",
+				"java",
 				"javascript",
+				"json",
+				"kotlin",
 				"lua",
+				"make",
 				"markdown",
 				"markdown_inline",
+				"perl",
+				"python",
 				"query",
+				"ruby",
+				"rust",
+				"toml",
+				"tsx",
 				"typescript",
 				"vim",
 				"vimdoc",
+				"yaml",
 			})
 			-- Start tree-sitter highlighting for each file type that has a parser.
 			-- Install a missing parser first, if nvim-treesitter has it.

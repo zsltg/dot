@@ -47,3 +47,14 @@ vim.opt.colorcolumn = "80"
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+-- Docker Compose files. The Docker language server attaches to this file type.
+vim.filetype.add({
+    pattern = {
+        ["compose%.ya?ml"] = "yaml.docker-compose",
+        ["docker%-compose%.ya?ml"] = "yaml.docker-compose",
+        ["compose%..+%.ya?ml"] = "yaml.docker-compose",
+        ["docker%-compose%..+%.ya?ml"] = "yaml.docker-compose",
+    },
+})
+-- Highlight them with the YAML parser.
+vim.treesitter.language.register("yaml", "yaml.docker-compose")

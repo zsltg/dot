@@ -1,51 +1,45 @@
+-- Linters for file types that have no language server diagnostics.
+-- The language servers give diagnostics for the other file types.
+local eslint = { "eslint_d" }
+
 return {
 	"mfussenegger/nvim-lint",
-	dependencies = { "mason.nvim" },
-	opts = function()
-		local function contains(array, value)
-			for _, v in ipairs(array) do
-				if v == value then
-					return true
-				end
-			end
-			return false
-		end
-		-- inject the linters installed through mason into lint
-		local packages = require("mason-registry").get_installed_packages()
-		local linters_by_ft = {}
-		for _, package in ipairs(packages) do
-			if contains(package.spec.categories, "Linter") then
-				for _, lang in ipairs(package.spec.languages) do
-					local lang_lower = string.lower(lang)
-					if not linters_by_ft[lang_lower] then
-						linters_by_ft[lang_lower] = {}
-					end
-
-					table.insert(linters_by_ft[lang_lower], package.name)
-				end
-			end
-		end
-
-		local filetype_aliases = {
-			["makefile"] = "make",
-		}
-
-		for alias, filetype in pairs(filetype_aliases) do
-			if linters_by_ft[alias] and not linters_by_ft[filetype] then
-				linters_by_ft[filetype] = linters_by_ft[alias]
-			end
-		end
-
-		local opts = {
-			events = { "BufWritePost", "BufReadPost", "InsertLeave" },
-			linters_by_ft = linters_by_ft,
-		}
-		return opts
-	end,
+	opts = {
+		events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+		linters_by_ft = {
+			dockerfile = { "hadolint" },
+			go = { "golangcilint" },
+			javascript = eslint,
+			javascriptreact = eslint,
+			kotlin = { "ktlint" },
+			lua = { "luacheck" },
+			make = { "checkmake" },
+			markdown = { "markdownlint-cli2" },
+			typescript = eslint,
+			typescriptreact = eslint,
+			yaml = { "actionlint" },
+		},
+		-- Run a linter only when its condition is true.
+		conditions = {
+			-- eslint gives an error when the project has no eslint configuration.
+			eslint_d = function(ctx)
+				return vim.fs.find(function(name)
+					return name:match("^eslint%.config%.") or name:match("^%.eslintrc")
+				end, { path = ctx.dirname, upward = true })[1] ~= nil
+			end,
+			-- actionlint is for GitHub Actions workflows only.
+			actionlint = function(ctx)
+				return ctx.filename:find("/%.github/workflows/") ~= nil
+			end,
+		},
+	},
 	config = function(_, opts)
 		local M = {}
 		local lint = require("lint")
 		lint.linters_by_ft = opts.linters_by_ft
+		for name, condition in pairs(opts.conditions) do
+			lint.linters[name].condition = condition
+		end
 		function M.debounce(ms, fn)
 			local timer = vim.uv.new_timer()
 			return function(...)
