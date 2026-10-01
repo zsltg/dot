@@ -5,6 +5,8 @@ return {
 		require("mini.icons").setup()
 		-- Plugins that use nvim-web-devicons get the mini.icons icons.
 		require("mini.icons").mock_nvim_web_devicons()
+		-- Text objects: a(rgument), f(unction call), q(uote), b(racket), t(ag).
+		require("mini.ai").setup()
 		-- The statusline gets the Git data from gitsigns.nvim.
 		require("mini.statusline").setup({ use_icons = true })
 		require("mini.pairs").setup({
