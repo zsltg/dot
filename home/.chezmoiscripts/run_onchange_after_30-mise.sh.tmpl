@@ -14,14 +14,16 @@ sudo apt-get install -y pkg-config libssl-dev libyaml-dev zlib1g-dev libffi-dev 
 
 # crates.io and GitHub are sometimes slow. Wait longer, and try again when a download fails.
 export MISE_FETCH_REMOTE_VERSIONS_TIMEOUT=60s
+# Wait longer after each failure, so that a short GitHub outage does not stop
+# the install.
 retry() {
-  local n
-  for n in 1 2 3; do
+  local wait
+  for wait in 10 30 60; do
     "$@" && return 0
-    echo "mise: attempt $n failed. Trying again." >&2
-    sleep 5
+    echo "mise: the attempt failed. Trying again in $wait s." >&2
+    sleep "$wait"
   done
-  return 1
+  "$@"
 }
 
 # Install the runtimes first. The go:, npm: and cargo: tools need them.
