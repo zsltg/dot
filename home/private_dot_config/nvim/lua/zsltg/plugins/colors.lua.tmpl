@@ -47,16 +47,17 @@ return {
                     fg = c.base1,
                     bg = c.bg_statusline,
                 }
+                -- fzf-lua: no background, as Normal
+                hl.FzfLuaNormal = { fg = c.base0 }
+                hl.FzfLuaBorder = { fg = c.base02 }
+                hl.FzfLuaTitle = { fg = c.orange }
+                hl.FzfLuaPreviewTitle = { fg = c.blue }
+                hl.FzfLuaHeaderBind = { fg = c.yellow }
                 -- blink.cmp
                 hl.BlinkCmpSignatureHelpActiveParameter = {
                     fg = c.base2,
                     bold = true,
                 }
-                -- Telescope: no background, default colors
-                hl.TelescopeNormal = {}
-                hl.TelescopeBorder = {}
-                hl.TelescopePreviewTitle = {}
-                hl.TelescopeResultsTitle = {}
             end,
         })
         vim.cmd("colorscheme solarized-osaka")
