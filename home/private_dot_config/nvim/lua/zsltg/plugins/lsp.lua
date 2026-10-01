@@ -44,11 +44,13 @@ return {
 				"jdtls", -- Java
 				"jsonls", -- JSON
 				"kotlin_lsp", -- Kotlin
+				"lemminx", -- XML (also formats)
 				"lua_ls", -- Lua
 				"marksman", -- Markdown
 				"perlnavigator", -- Perl
 				"ruff", -- Python lint and format
 				"rust_analyzer", -- Rust
+				"sqls", -- SQL
 				"superhtml", -- HTML
 				"tailwindcss", -- Tailwind CSS
 				"taplo", -- TOML
@@ -65,11 +67,13 @@ return {
 				"luacheck", -- Lua
 				"markdownlint-cli2", -- Markdown
 				"shellcheck", -- sh, bash (bashls uses it)
+				"sqlfluff", -- SQL
 				-- Formatters
 				"goimports", -- Go
 				"google-java-format", -- Java
 				"prettierd", -- JavaScript, TypeScript, HTML, CSS, JSON, YAML, Markdown
 				"shfmt", -- sh, bash
+				"sql-formatter", -- SQL
 				"stylua", -- Lua
 			},
 		},
@@ -136,6 +140,18 @@ return {
 				-- RocksDB loads its musl library when musl is installed, but the
 				-- package has only the glibc library.
 				cmd_env = { ROCKSDB_MUSL_LIBC = "false" },
+			})
+			-- sqls shows a message for each file when its configuration has no
+			-- database connection. Completion of the SQL keywords works without one.
+			vim.lsp.config("sqls", {
+				handlers = {
+					["window/showMessage"] = function(err, result, ctx)
+						if result and result.message:find("no database connection", 1, true) then
+							return
+						end
+						return vim.lsp.handlers["window/showMessage"](err, result, ctx)
+					end,
+				},
 			})
 			vim.lsp.config("jsonls", {
 				settings = {

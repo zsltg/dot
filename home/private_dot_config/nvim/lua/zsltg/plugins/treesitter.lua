@@ -31,11 +31,13 @@ return {
 				"query",
 				"ruby",
 				"rust",
+				"sql",
 				"toml",
 				"tsx",
 				"typescript",
 				"vim",
 				"vimdoc",
+				"xml",
 				"yaml",
 			})
 			-- Start tree-sitter highlighting for each file type that has a parser.

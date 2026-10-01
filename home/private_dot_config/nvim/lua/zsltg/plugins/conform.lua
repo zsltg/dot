@@ -4,7 +4,7 @@ return {
 	"stevearc/conform.nvim",
 	event = "VeryLazy",
 	-- File types not in the list use the language server to format:
-	-- C, C++ (clangd), Ruby (rubocop), Perl (perlnavigator).
+	-- C, C++ (clangd), Ruby (rubocop), Perl (perlnavigator), XML (lemminx).
 	opts = {
 		formatters_by_ft = {
 			astro = prettier,
@@ -24,6 +24,7 @@ return {
 			rust = { "rustfmt" },
 			scss = prettier,
 			sh = { "shfmt" },
+			sql = { "sql_formatter" },
 			toml = { "taplo" },
 			typescript = prettier,
 			typescriptreact = prettier,

@@ -15,6 +15,7 @@ return {
 			lua = { "luacheck" },
 			make = { "checkmake" },
 			markdown = { "markdownlint-cli2" },
+			sql = { "sqlfluff" },
 			typescript = eslint,
 			typescriptreact = eslint,
 			yaml = { "actionlint" },
@@ -26,6 +27,10 @@ return {
 				return vim.fs.find(function(name)
 					return name:match("^eslint%.config%.") or name:match("^%.eslintrc")
 				end, { path = ctx.dirname, upward = true })[1] ~= nil
+			end,
+			-- sqlfluff needs the SQL dialect from the project configuration.
+			sqlfluff = function(ctx)
+				return vim.fs.find(".sqlfluff", { path = ctx.dirname, upward = true })[1] ~= nil
 			end,
 			-- actionlint is for GitHub Actions workflows only.
 			actionlint = function(ctx)
@@ -40,6 +45,10 @@ return {
 		for name, condition in pairs(opts.conditions) do
 			lint.linters[name].condition = condition
 		end
+		-- Use the dialect from .sqlfluff, not the nvim-lint default (ansi).
+		lint.linters.sqlfluff.args = vim.tbl_filter(function(arg)
+			return not arg:match("^%-%-dialect=")
+		end, lint.linters.sqlfluff.args)
 		function M.debounce(ms, fn)
 			local timer = vim.uv.new_timer()
 			return function(...)
