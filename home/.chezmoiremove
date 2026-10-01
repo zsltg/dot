@@ -1,4 +1,5 @@
 # Files that chezmoi managed before. "chezmoi apply" removes them from the
 # target. Remove an entry when no machine has the file any more.
 # Neovim plugin specs that other plugins replaced:
+.config/nvim/lua/zsltg/plugins/harpoon.lua
 .config/nvim/lua/zsltg/plugins/telescope.lua

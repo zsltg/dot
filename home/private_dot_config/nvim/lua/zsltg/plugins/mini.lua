@@ -3,6 +3,8 @@ return {
 	enabled = true,
 	config = function()
 		require("mini.icons").setup()
+		-- Plugins that use nvim-web-devicons get the mini.icons icons.
+		require("mini.icons").mock_nvim_web_devicons()
 		require("mini.git").setup()
 		require("mini.diff").setup()
 		require("mini.statusline").setup({ use_icons = true })
