@@ -1,0 +1,17 @@
+# Keep the GitHub Actions in .github/workflows up to date. The workflows pin
+# each action by commit SHA, with the version in a comment. Dependabot updates
+# both. One pull request per week has all the updates.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    # Wait until a release is a week old, so that a bad release can be pulled first.
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: ci
