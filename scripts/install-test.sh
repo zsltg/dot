@@ -57,7 +57,10 @@ chezmoi init --source "$src" --apply --no-tty
 echo "first apply: $((SECONDS - start)) s"
 
 echo "==> second apply is a no-op"
-changes="$(chezmoi status | grep -vE ' \.chezmoiscripts/(15-dysk-docs|60-alacritty)\.sh$' || true)"
+# The run_after_ scripts run on each apply. Ignore them.
+each_apply="$(cd "$src/home/.chezmoiscripts" && ls run_after_* |
+  sed -E 's/^run_after_//; s/\.tmpl$//; s/\./\\./g' | paste -sd'|' -)"
+changes="$(chezmoi status | grep -vE " \.chezmoiscripts/($each_apply)\$" || true)"
 if [ -n "$changes" ]; then
   echo "chezmoi has changes to make after the first apply:" >&2
   echo "$changes" >&2
