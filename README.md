@@ -2,7 +2,7 @@
 
 [![Lint](https://github.com/zsltg/dot/actions/workflows/lint.yml/badge.svg)](https://github.com/zsltg/dot/actions/workflows/lint.yml)
 [![Install](https://github.com/zsltg/dot/actions/workflows/install.yml/badge.svg)](https://github.com/zsltg/dot/actions/workflows/install.yml)
-[![License: MIT](https://img.shields.io/github/license/zsltg/dot)](LICENSE)
+[![License: MIT-0](https://img.shields.io/github/license/zsltg/dot)](LICENSE)
 
 Dotfiles and tool installs for Linux (Ubuntu) and macOS, managed with [chezmoi](https://www.chezmoi.io/).
 
@@ -231,3 +231,11 @@ The Install workflow installs the dotfiles on a new Ubuntu container (amd64 and 
 - `home/.chezmoiscripts/`: install scripts, in the order of their numbers.
 - `scripts/check.sh`, `scripts/install-test.sh`: the repo checks and the install test. `.github/workflows/`: the CI workflows.
 - `home/.lazy-lock.json`: the plugin versions for Neovim. `~/.config/nvim/lazy-lock.json` is a symlink to this file, so `:Lazy update` changes it in the repo. Commit the change.
+
+## License
+
+[MIT-0](LICENSE). You can copy, change, and share these files. You do not have to keep a copyright notice.
+
+Some files come from other projects. These files keep their own license, which is in a comment at the top of the file:
+
+- `home/private_dot_config/bat/themes/SolarizedDarkPatched.tmTheme`: MIT, from [braver/Solarized](https://github.com/braver/Solarized).
