@@ -3,6 +3,12 @@ vim.api.nvim_create_user_command("E", function()
 end, {})
 
 vim.g.mapleader = " "
+
+-- Built-in undo tree (Neovim 0.12). Load it on first use, not at each start.
+vim.keymap.set("n", "<leader>u", function()
+    vim.cmd.packadd("nvim.undotree")
+    vim.cmd.Undotree()
+end, { desc = "Undotree toggle" })
 --vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Move selection down/up

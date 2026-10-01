@@ -3,3 +3,4 @@
 # Neovim plugin specs that other plugins replaced:
 .config/nvim/lua/zsltg/plugins/harpoon.lua
 .config/nvim/lua/zsltg/plugins/telescope.lua
+.config/nvim/lua/zsltg/plugins/undotree.lua
