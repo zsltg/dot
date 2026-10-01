@@ -86,6 +86,8 @@ return {
 		},
 		config = function()
 			-- Keymaps for each buffer that has a language server.
+			-- Neovim has default maps for the other LSP actions: K, grr,
+			-- gri, grn, gra, grt, gO. Do not map them again.
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("zsltg_lsp", { clear = true }),
 				callback = function(args)
@@ -94,9 +96,6 @@ return {
 					end
 					bufmap("n", "gd", vim.lsp.buf.definition, "Go to Definition")
 					bufmap("n", "gD", vim.lsp.buf.declaration, "Go to Declaration")
-					bufmap("n", "gr", vim.lsp.buf.references, "List References")
-					bufmap("n", "gi", vim.lsp.buf.implementation, "Go to Implementation")
-					bufmap("n", "K", vim.lsp.buf.hover, "Hover Documentation")
 				end,
 			})
 			-- The settings that follow add to the nvim-lspconfig defaults.
