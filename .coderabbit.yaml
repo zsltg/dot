@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# CodeRabbit review settings. The repo rules are in AGENTS.md. CodeRabbit reads
+# that file as code guidelines, so this file does not repeat the rules.
+language: en-US
+knowledge_base:
+  code_guidelines:
+    enabled: true
+early_access: false
+reviews:
+  profile: assertive
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+  auto_review:
+    enabled: true
+    drafts: true
+    # The weekly Dependabot pull request changes only pinned action SHAs.
+    ignore_usernames: ["dependabot[bot]"]
+  path_instructions:
+    - path: "home/**/*.tmpl"
+      instructions: >-
+        This file is a chezmoi template (Go text/template with sprig). chezmoi
+        renders it for linux and darwin, amd64 and arm64, and each palette in
+        home/.chezmoidata/palette.yaml. Review the rendered result for each OS
+        and arch. Optional data keys must use index, because templates run with
+        missingkey=error.
+    - path: "home/.chezmoiscripts/**"
+      instructions: >-
+        Install scripts. They must be idempotent and safe to run again, use
+        set -euo pipefail, and tolerate a transient network failure. macOS runs
+        them with bash 3.2.
+    - path: "home/.chezmoidata/packages.yaml"
+      instructions: >-
+        Each added or removed tool must also change the tool list in README.md.
+        A mise tool that is not a runtime needs a comment that tells why Homebrew does
+        not install it.
+  tools:
+    shellcheck:
+      enabled: true
+    actionlint:
+      enabled: true
+    gitleaks:
+      enabled: true
+    markdownlint:
+      enabled: false
+chat:
+  auto_reply: true
