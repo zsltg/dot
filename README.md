@@ -128,6 +128,7 @@ Each entry shows the command name, with a link to the source repository of the t
 - [cargo-mutants](https://github.com/sourcefrog/cargo-mutants): Adds bugs to Rust code to find out if the tests catch them.
 - [ccache](https://github.com/ccache/ccache): Makes C and C++ builds faster with a compiler cache.
 - [cloc](https://github.com/AlDanial/cloc): Counts the lines of code, comments and blank lines for each language.
+- [cpanm](https://github.com/miyagawa/cpanminus): Installs Perl modules from CPAN. It installs Perl::Critic for the Perl language server in Neovim.
 - [dagger](https://github.com/dagger/dagger): Runs CI/CD pipelines as code, on your computer and in CI.
 - [deno](https://github.com/denoland/deno): Runs JavaScript and TypeScript in a secure runtime.
 - [gh](https://github.com/cli/cli): Works with GitHub pull requests, issues and repositories from the terminal.
@@ -139,16 +140,20 @@ Each entry shows the command name, with a link to the source repository of the t
 - [golangci-lint](https://github.com/golangci/golangci-lint): Runs many Go linters with one command.
 - [govulncheck](https://github.com/golang/vuln): Finds known vulnerabilities in Go code and its dependencies.
 - [gremlins](https://github.com/go-gremlins/gremlins): Runs mutation tests for Go code.
+- [java](https://github.com/adoptium/temurin-build) (Temurin 21): Runs Java programs. The Java and Kotlin language servers in Neovim need it.
 - [lazygit](https://github.com/jesseduffield/lazygit): Gives a terminal UI for git commands.
 - [lightpanda](https://github.com/lightpanda-io/browser): Runs a headless browser for automation and AI agents.
 - [mdbook](https://github.com/rust-lang/mdBook): Makes online books from Markdown files.
 - [mdbook-mermaid](https://github.com/badboy/mdbook-mermaid): Adds Mermaid diagrams to mdBook.
 - [oha](https://github.com/hatoo/oha): Sends HTTP load to a web server and shows the results live.
 - [osv-scanner](https://github.com/google/osv-scanner): Finds known vulnerabilities in project dependencies with the OSV database.
+- [perl](https://github.com/Perl/perl5): Runs programs in the Perl programming language.
 - [pnpm](https://github.com/pnpm/pnpm): Installs JavaScript packages fast and with less disk space.
+- [rubocop](https://github.com/rubocop/rubocop): Lints and formats Ruby code. Neovim uses it as a language server.
 - [ruff](https://github.com/astral-sh/ruff): Lints and formats Python code, fast.
 - [semgrep](https://github.com/semgrep/semgrep): Finds bugs and security problems in code with pattern rules.
 - [shellcheck](https://github.com/koalaman/shellcheck): Finds bugs and unsafe code in shell scripts.
+- [solargraph](https://github.com/castwide/solargraph): Gives editors Ruby language features through LSP.
 - [svu](https://github.com/caarlos0/svu): Calculates the next semantic version from git tags and commits.
 - [syft](https://github.com/anchore/syft): Makes a software bill of materials (SBOM) from container images and file systems.
 - [taplo](https://github.com/tamasfe/taplo): Formats and validates TOML files.

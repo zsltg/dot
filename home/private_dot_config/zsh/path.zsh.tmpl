@@ -20,6 +20,7 @@ export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
 
 path=(
   $HOME/.local/bin
+  $HOME/.local/share/perl5/bin
   $HOME/.local/share/mise/shims
   $HOME/.cargo/bin
   $HOME/go/bin
@@ -27,6 +28,16 @@ path=(
   $HOMEBREW_PREFIX/sbin
   $path
 )
+
+{{ if .dev -}}
+# Java from mise (dev group). Tools that start java with an unusual argv[0],
+# for example the jdtls launcher, need the real binary, not the mise shim.
+[[ -d $HOME/.local/share/mise/installs/java/{{ index .packages.dev.mise "java" }} ]] &&
+  export JAVA_HOME=$HOME/.local/share/mise/installs/java/{{ index .packages.dev.mise "java" }}
+{{- end }}
+
+# Perl modules that cpanm installs (run_after_35-perl-critic.sh, dev group).
+export PERL5LIB="$HOME/.local/share/perl5/lib/perl5${PERL5LIB:+:$PERL5LIB}"
 
 # ccache wrappers for gcc and clang (dev group).
 [[ -d $HOMEBREW_PREFIX/opt/ccache/libexec ]] && path=($HOMEBREW_PREFIX/opt/ccache/libexec $path)

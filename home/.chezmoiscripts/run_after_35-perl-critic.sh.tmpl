@@ -1,0 +1,22 @@
+{{ if .dev -}}
+#!/bin/bash
+# Install Perl::Critic into ~/.local/share/perl5 with cpanm. The Perl language
+# server in Neovim (perlnavigator) uses it. Homebrew and Mason do not have it.
+# This script runs on each "chezmoi apply", but it installs only when the module
+# is missing, for example after a Perl upgrade.
+set -euo pipefail
+{{ template "brew-env" . }}
+eval "$("$BREW" shellenv)"
+
+command -v cpanm >/dev/null 2>&1 || exit 0
+lib="$HOME/.local/share/perl5"
+export PERL5LIB="$lib/lib/perl5${PERL5LIB:+:$PERL5LIB}"
+if perl -MPerl::Critic -e 1 2>/dev/null; then
+  exit 0
+fi
+
+# Use cpanm with the perl on PATH (Homebrew), the same perl that Neovim uses.
+if ! perl "$(command -v cpanm)" --quiet --notest --local-lib "$lib" Perl::Critic; then
+  echo "cpanm: cannot install Perl::Critic. Skipped." >&2
+fi
+{{ end -}}

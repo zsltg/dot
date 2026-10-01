@@ -127,7 +127,16 @@ packages:
       - act
       - ruff
       - oha
+      # Perl::Critic for the Perl language server (run_after_35-perl-critic.sh)
+      - perl
+      - cpanminus
     mise:
+      # the Java and Kotlin language servers in Neovim need Java 21 or later
+      java: temurin-21
+      # Ruby language servers for Neovim. Not from Mason: the mise Ruby is
+      # relocatable, and the gem launchers that Mason makes cannot find it.
+      "gem:rubocop": latest
+      "gem:solargraph": latest
       "cargo:cargo-machete": latest
       "cargo:mdbook-mermaid": latest
       "go:github.com/git-chglog/git-chglog/cmd/git-chglog": latest
