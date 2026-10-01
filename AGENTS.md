@@ -45,5 +45,6 @@ Only when asked:
 ## Source Control & Commits
 - Conventional Commits: `<type>(<scope>): <description>`, lowercase imperative. Types feat, fix, docs, style, refactor, perf, test, build, ci, chore. Scope is the area: `zsh`, `nvim`, `alacritty`, `tmux`, `git`, `packages`, `scripts`, `mise`.
 - One atomic change per commit, no unrelated changes bundled.
+- Install-path changes go through a branch and PR on the GitHub mirror: `home/.chezmoidata/packages.yaml`, `home/.chezmoiscripts/`, `home/.chezmoiexternal*`, `home/.chezmoi.toml.tmpl`, `home/.chezmoiignore.tmpl`, mise and brew templates, `path.zsh`, `.zshrc`, `.zshenv`, `.github/workflows/`, multi-commit agent work. Wait for Lint and Install. Merge: `git merge --ff-only`, push `main` to `origin` and `github`, delete branch. Never squash or merge on GitHub. Other changes go direct to `main`.
 - Agent-authored commits end with a `Co-Authored-By:` trailer.
 - Before commit: `scripts/check.sh` passes.
