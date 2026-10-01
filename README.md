@@ -1,5 +1,9 @@
 # dot
 
+[![Lint](https://github.com/zsltg/dot/actions/workflows/lint.yml/badge.svg)](https://github.com/zsltg/dot/actions/workflows/lint.yml)
+[![Install](https://github.com/zsltg/dot/actions/workflows/install.yml/badge.svg)](https://github.com/zsltg/dot/actions/workflows/install.yml)
+[![License: MIT](https://img.shields.io/github/license/zsltg/dot)](LICENSE)
+
 Dotfiles and tool installs for Linux (Ubuntu) and macOS, managed with [chezmoi](https://www.chezmoi.io/).
 
 ## Install on a new machine
