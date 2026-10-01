@@ -1,3 +1,8 @@
+-- Leader keys. Set them first: a <leader> mapping uses the value
+-- at the time it is made (remap.lua and the lazy.nvim plugin specs).
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 -- Line numbers
 vim.opt.nu = true
 
