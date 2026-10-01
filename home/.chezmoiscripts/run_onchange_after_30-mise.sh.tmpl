@@ -12,6 +12,10 @@ export PATH="$HOME/.local/share/mise/shims:$HOME/.cargo/bin:$PATH"
 sudo apt-get install -y pkg-config libssl-dev libyaml-dev zlib1g-dev libffi-dev libreadline-dev libgmp-dev
 {{ end -}}
 
+# The mise progress bars redraw full lines many times each second while a tool
+# builds, for example a gem. Show only the errors.
+export MISE_QUIET=1
+
 # crates.io and GitHub are sometimes slow. Wait longer, and try again when a download fails.
 export MISE_FETCH_REMOTE_VERSIONS_TIMEOUT=60s
 # Wait longer after each failure, so that a short GitHub outage does not stop
@@ -27,6 +31,7 @@ retry() {
 }
 
 # Install the runtimes first. The go:, npm: and cargo: tools need them.
+echo "mise: installing the runtimes and tools. This can take some minutes."
 retry mise install --yes node go ruby
 mise reshim
 retry mise install --yes
