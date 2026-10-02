@@ -4,3 +4,5 @@
 .config/nvim/lua/zsltg/plugins/harpoon.lua
 .config/nvim/lua/zsltg/plugins/telescope.lua
 .config/nvim/lua/zsltg/plugins/undotree.lua
+# Own Lightpanda skill that the official skill replaced:
+.agents/skills/lightpanda-browser

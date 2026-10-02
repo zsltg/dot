@@ -15,6 +15,7 @@
       (list "ast-grep-outline" "ast-grep/agent-skill" "ast-grep/skills/outline")
       (list "caveman" "JuliusBrussee/caveman" "skills/caveman")
       (list "last30days" "mvanhorn/last30days-skill" "skills/last30days")
+      (list "pandascript" "lightpanda-io/agent-skill" "pandascript")
       (list "security-audit" "cloudflare/security-audit-skill" "skills/security-audit")
       (list "simple-english" "AminBlg/SimpleEnglish" "skills/simple-english") }}
 
@@ -26,4 +27,13 @@
     stripComponents = {{ add 1 (len (splitList "/" (index . 2))) }}
     include = [{{ printf "*/%s/**" (index . 2) | quote }}]
 {{- end }}
+
+# This skill is at the repo root. The pandascript entry gets its subfolder.
+[".agents/skills/lightpanda"]
+    type = "archive"
+    url = "https://github.com/lightpanda-io/agent-skill/archive/HEAD.tar.gz"
+    exact = true
+    refreshPeriod = "168h"
+    stripComponents = 1
+    include = ["*/SKILL.md", "*/scripts/**"]
 {{- end }}

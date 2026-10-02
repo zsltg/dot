@@ -177,9 +177,10 @@ Agent skills go to `~/.agents/skills`. `~/.claude/skills` is a symlink to this f
 - [ast-grep-outline](https://github.com/ast-grep/agent-skill): Shows a structural map of source files with `ast-grep outline`.
 - [caveman](https://github.com/JuliusBrussee/caveman): Makes agent replies short, but keeps the technical content.
 - [last30days](https://github.com/mvanhorn/last30days-skill): Finds what people said about a topic in the last 30 days, on Reddit, X, YouTube, Hacker News and other sites.
+- [lightpanda](https://github.com/lightpanda-io/agent-skill): Uses the Lightpanda headless browser through MCP, CLI fetch or CDP, in place of Chrome.
+- [pandascript](https://github.com/lightpanda-io/agent-skill): Writes PandaScript files, which Lightpanda replays with no LLM calls.
 - [security-audit](https://github.com/cloudflare/security-audit-skill): Finds security problems in a codebase and gives the evidence and the fix.
 - [simple-english](https://github.com/AminBlg/SimpleEnglish): Writes technical text with the rules of ASD-STE100 Simplified Technical English.
-- lightpanda-browser (in this repo): Controls the Lightpanda headless browser over CDP, for automation and tests.
 
 ### docker group
 
