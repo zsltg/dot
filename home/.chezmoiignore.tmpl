@@ -8,6 +8,12 @@
 {{- if or (ne .chezmoi.os "darwin") (not .docker) }}
 .colima
 {{- end }}
+# Python writes bytecode into skill folders. Exact externals must keep it.
+.agents/skills/**/__pycache__
 {{- if not .ai }}
+.agents
+.claude
+.codex
 .config/herdr
+.pi
 {{- end }}

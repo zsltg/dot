@@ -171,6 +171,16 @@ Each entry shows the command name, with a link to the source repository of the t
 - [herdr](https://github.com/herdrdev/herdr): Runs AI coding agents in a terminal multiplexer.
 - [pi](https://github.com/earendil-works/pi): Runs a coding agent with read, bash, edit and write tools.
 
+Agent skills go to `~/.agents/skills`. `~/.claude/skills` is a symlink to this folder. Claude Code, Codex and pi read the global instructions in `~/.agents/AGENTS.md`. chezmoi gets each skill from the default branch of its repo and refreshes it each week (`home/.chezmoiexternal.toml.tmpl`):
+
+- [ast-grep](https://github.com/ast-grep/agent-skill): Writes ast-grep rules for structural code search.
+- [ast-grep-outline](https://github.com/ast-grep/agent-skill): Shows a structural map of source files with `ast-grep outline`.
+- [caveman](https://github.com/JuliusBrussee/caveman): Makes agent replies short, but keeps the technical content.
+- [last30days](https://github.com/mvanhorn/last30days-skill): Finds what people said about a topic in the last 30 days, on Reddit, X, YouTube, Hacker News and other sites.
+- [security-audit](https://github.com/cloudflare/security-audit-skill): Finds security problems in a codebase and gives the evidence and the fix.
+- [simple-english](https://github.com/AminBlg/SimpleEnglish): Writes technical text with the rules of ASD-STE100 Simplified Technical English.
+- lightpanda-browser (in this repo): Controls the Lightpanda headless browser over CDP, for automation and tests.
+
 ### docker group
 
 - [colima](https://github.com/abiosoft/colima) (macOS): Runs container runtimes in a virtual machine with minimal setup.
@@ -196,6 +206,7 @@ brew upgrade         # CLI tools
 mise upgrade         # runtimes and mise tools
 rustup update
 antidote update      # zsh plugins
+chezmoi apply --refresh-externals   # font and agent skills, before the refresh period ends
 ```
 
 The Alacritty script runs on each `chezmoi apply` and builds only when a new release exists.

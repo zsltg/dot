@@ -16,6 +16,7 @@ Dotfiles and tool installs for Linux (Ubuntu) and macOS, managed with chezmoi. O
 - `home/.chezmoitemplates/`: shared template snippets (`brew-env`, `groups`).
 - `.github/workflows/`: CI, GitHub mirror only. Pin actions by commit SHA, `permissions: contents: read`, `persist-credentials: false`.
 - `home/private_dot_config/zsh/*.zsh`: interactive modules, sourced by `dot_zshrc`. `path.zsh` sourced by `.zshenv` and `.zprofile` only.
+- `home/dot_agents/`: global agent instructions, own skills. Upstream skills: `home/.chezmoiexternal.toml.tmpl`, fetched from GitHub, never vendored.
 - `home/.lazy-lock.json`: nvim plugin lock. `~/.config/nvim/lazy-lock.json` symlinks to it, so `:Lazy update` shows as a repo diff.
 ## Commands
 - Preview: `chezmoi diff`. Apply: `chezmoi apply`. Render one template: `chezmoi execute-template < <file>`.
