@@ -1,0 +1,24 @@
+{{ if and .ai .dev -}}
+#!/bin/bash
+# Add the Lightpanda MCP server (lightpanda is in the dev group) to Claude
+# Code, Codex and pi. The agents keep MCP servers in files that also hold
+# app state, so the repo cannot keep these files. Each add replaces an
+# entry of the same name.
+set -euo pipefail
+{{ template "brew-env" . }}
+eval "$("$BREW" shellenv)"
+export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+
+if command -v claude > /dev/null; then
+  claude mcp remove --scope user lightpanda > /dev/null 2>&1 || true
+  # The name goes first: --env takes all values up to the next option.
+  claude mcp add lightpanda --scope user --env LIGHTPANDA_DISABLE_TELEMETRY=true \
+    -- lightpanda mcp
+fi
+if command -v codex > /dev/null; then
+  codex mcp add --env LIGHTPANDA_DISABLE_TELEMETRY=true lightpanda -- lightpanda mcp
+fi
+if command -v pi > /dev/null; then
+  pi mcp add --env LIGHTPANDA_DISABLE_TELEMETRY=true lightpanda -- lightpanda mcp
+fi
+{{ end -}}
