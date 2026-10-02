@@ -71,9 +71,21 @@ export function resolveKey() {
 
 // --- state files ------------------------------------------------------------
 export function runtimeDir() {
-  const base = process.env.XDG_RUNTIME_DIR || os.tmpdir();
-  const dir = path.join(base, 'lightpanda');
+  // XDG_RUNTIME_DIR is private to the user. The tmpdir() fallback can be
+  // shared (for example /tmp on Linux), so add the UID to the name and
+  // make sure that the directory is ours and private.
+  const xdg = process.env.XDG_RUNTIME_DIR;
+  const uid = process.getuid?.();
+  const dir = xdg
+    ? path.join(xdg, 'lightpanda')
+    : path.join(os.tmpdir(), uid == null ? 'lightpanda' : `lightpanda-${uid}`);
   fs.mkdirSync(dir, { recursive: true, mode: 0o700 });
+  if (!xdg && uid != null) {
+    const st = fs.lstatSync(dir);
+    if (!st.isDirectory() || st.uid !== uid || (st.mode & 0o077) !== 0) {
+      throw new Error(`unsafe runtime directory: ${dir}`);
+    }
+  }
   return dir;
 }
 
@@ -125,6 +137,14 @@ export function pidAlive(pid) {
   }
 }
 
+// True only when pid runs the lightpanda binary. After lightpanda exits, the
+// system can give its PID to a different process.
+function isLightpanda(pid) {
+  if (!pid || process.platform === 'win32') return false;
+  const r = spawnSync('ps', ['-o', 'comm=', '-p', String(pid)], { encoding: 'utf8' });
+  return r.status === 0 && path.basename(r.stdout.trim()) === 'lightpanda';
+}
+
 // --- networking helpers -----------------------------------------------------
 export function freePort() {
   return new Promise((resolve, reject) => {
@@ -165,7 +185,8 @@ export async function waitReady(port, totalMs = 10000) {
 
 // --- backends ---------------------------------------------------------------
 // Contract: ensureRuntime(), start(key, port) -> extra state, alive(state),
-// stop(state), logTail(state). Platform specifics live entirely in here.
+// stop(state) -> true when nothing runs anymore, logTail(state). Platform
+// specifics live entirely in here.
 
 const NIGHTLY = 'https://github.com/lightpanda-io/browser/releases/download/nightly';
 const DOCKER_IMAGE = 'lightpanda/browser:nightly';
@@ -236,10 +257,11 @@ const nativeBackend = {
     return { pid: child.pid, logFile };
   },
   alive(state) {
-    return pidAlive(state.pid);
+    return isLightpanda(state.pid);
   },
   stop(state) {
-    if (!state.pid) return;
+    // Signal only our own lightpanda, never a process that got its PID.
+    if (!isLightpanda(state.pid)) return true;
     for (const target of [-state.pid, state.pid]) {
       // negative -> kill the whole detached group first
       try {
@@ -248,6 +270,7 @@ const nativeBackend = {
         /* already gone */
       }
     }
+    return true;
   },
   logTail(state) {
     try {
@@ -292,7 +315,9 @@ const dockerBackend = {
     return r.status === 0 && r.stdout.trim() === 'true';
   },
   stop(state) {
-    if (state.container) docker(['rm', '-f', state.container]);
+    if (!state.container) return true;
+    const r = docker(['rm', '-f', state.container]);
+    return r.status === 0 || /no such container/i.test(r.stderr);
   },
   logTail(state) {
     const r = docker(['logs', '--tail', '20', state.container]);

@@ -60,8 +60,10 @@ async function main() {
   const backend = selectBackend();
 
   // 1. Reuse an existing healthy instance for this session.
+  // Use the backend that started it: LIGHTPANDA_BACKEND can change between calls.
   const existing = readState(key);
-  if (existing && backend.alive(existing) && (await health(existing.port))) {
+  const existingBackend = existing && (getBackend(existing.backend) ?? backend);
+  if (existing && existingBackend.alive(existing) && (await health(existing.port))) {
     touchState(key);
     process.stdout.write(endpoint(existing.port) + '\n');
     return;
@@ -69,7 +71,7 @@ async function main() {
   if (existing) {
     // Stale/dead record for our own key: clean it before starting fresh.
     try {
-      backend.stop(existing);
+      existingBackend.stop(existing);
     } catch {
       /* ignore */
     }
@@ -83,13 +85,23 @@ async function main() {
   await backend.ensureRuntime();
   const port = await freePort();
   const started = backend.start(key, port);
-  writeState(key, {
-    backend: backend.name,
-    port,
-    ownerPid: sessionLeaderPid(), // null on Windows -> reaping falls back to idle TTL
-    startedAt: new Date().toISOString(),
-    ...started,
-  });
+  try {
+    writeState(key, {
+      backend: backend.name,
+      port,
+      ownerPid: sessionLeaderPid(), // null on Windows -> reaping falls back to idle TTL
+      startedAt: new Date().toISOString(),
+      ...started,
+    });
+  } catch (err) {
+    // Without a state record, nothing can find this instance again: stop it.
+    try {
+      backend.stop(started);
+    } catch {
+      /* ignore */
+    }
+    throw err;
+  }
 
   // 4. Wait for the CDP server to answer.
   if (!(await waitReady(port))) {
