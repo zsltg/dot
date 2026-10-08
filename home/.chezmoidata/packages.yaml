@@ -161,8 +161,9 @@ packages:
       # caveman CLI: its Claude Code hooks run dist/native-hook-fast.js
       "npm:@caveman-ai/cli": latest
     mise_linux:
-      # macOS gets codex from the cask. claude-code on Linux uses its own
-      # installer (run_onchange_after_50-ai-linux.sh).
+      # macOS gets claude-code and codex from the casks. Casks do not
+      # install on Linux.
+      claude-code: latest
       "npm:@openai/codex": latest
 
   docker:

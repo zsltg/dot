@@ -165,7 +165,7 @@ Each entry shows the command name, with a link to the source repository of the t
 ### ai group
 
 - [caveman](https://github.com/JuliusBrussee/caveman): Wraps coding agents with context compression and token metering.
-- [claude](https://github.com/anthropics/claude-code) (macOS: Homebrew cask, Linux: native installer): Runs the Anthropic coding agent in the terminal.
+- [claude](https://github.com/anthropics/claude-code) (macOS: Homebrew cask, Linux: mise): Runs the Anthropic coding agent in the terminal.
 - [codex](https://github.com/openai/codex) (macOS: Homebrew cask, Linux: npm): Runs the OpenAI coding agent in the terminal.
 - [crit](https://github.com/tomasz-tomczyk/crit): Shows agent plans and code changes locally, so that you can review them and give feedback.
 - [herdr](https://github.com/herdrdev/herdr): Runs AI coding agents in a terminal multiplexer.
