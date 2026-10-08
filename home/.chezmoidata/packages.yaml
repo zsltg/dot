@@ -145,6 +145,11 @@ packages:
       "cargo:mdbook-mermaid": latest
       "go:github.com/git-chglog/git-chglog/cmd/git-chglog": latest
       "go:github.com/go-gremlins/gremlins/cmd/gremlins": latest
+      # not in Homebrew, and the releases have no Linux build. Not on Linux
+      # arm64: a dependency (zimmski/osutil) calls syscall.Dup2, which Go
+      # does not have there.
+      "go:github.com/quality-gates/mutago/v2/cmd/mutago":
+        { version: latest, os: ["macos", "linux/x64"] }
       # "0", not latest: upstream marks the "nightly" release as latest, and
       # mise then installs nightly. Change to "latest" or "1" after 1.0.
       "github:lightpanda-io/browser": { version: "0", bin: lightpanda }

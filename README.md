@@ -145,6 +145,7 @@ Each entry shows the command name, with a link to the source repository of the t
 - [lightpanda](https://github.com/lightpanda-io/browser): Runs a headless browser for automation and AI agents.
 - [mdbook](https://github.com/rust-lang/mdBook): Makes online books from Markdown files.
 - [mdbook-mermaid](https://github.com/badboy/mdbook-mermaid): Adds Mermaid diagrams to mdBook.
+- [mutago](https://github.com/quality-gates/mutago): Adds bugs to Go code to find out if the tests catch them.
 - [oha](https://github.com/hatoo/oha): Sends HTTP load to a web server and shows the results live.
 - [osv-scanner](https://github.com/google/osv-scanner): Finds known vulnerabilities in project dependencies with the OSV database.
 - [perl](https://github.com/Perl/perl5): Runs programs in the Perl programming language.
