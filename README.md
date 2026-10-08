@@ -180,10 +180,10 @@ Agent skills go to `~/.agents/skills`. `~/.claude/skills` is a symlink to this f
 - [lightpanda](https://github.com/lightpanda-io/agent-skill): Uses the Lightpanda headless browser through MCP, CLI fetch or CDP, in place of Chrome.
 - [logo-design](https://github.com/kaankiziltug/logo-design-skill): Designs logos and brand marks, from the brief to the SVG files and the brand guidelines.
 - [pandascript](https://github.com/lightpanda-io/agent-skill): Writes PandaScript files, which Lightpanda replays with no LLM calls.
-
-With the ai and dev groups, an install script also adds the Lightpanda MCP server (`lightpanda mcp`) to Claude Code, Codex and pi. The agents keep their MCP servers in files that also hold app state, so the repo does not keep these files.
 - [security-audit](https://github.com/cloudflare/security-audit-skill): Finds security problems in a codebase and gives the evidence and the fix.
 - [simple-english](https://github.com/AminBlg/SimpleEnglish): Writes technical text with the rules of ASD-STE100 Simplified Technical English.
+
+With the ai and dev groups, an install script also adds the Lightpanda MCP server (`lightpanda mcp`) to Claude Code, Codex and pi. The agents keep their MCP servers in files that also hold app state, so the repo does not keep these files.
 
 ### docker group
 
