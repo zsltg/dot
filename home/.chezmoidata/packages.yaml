@@ -150,6 +150,10 @@ packages:
       # does not have there.
       "go:github.com/quality-gates/mutago/v2/cmd/mutago":
         { version: latest, os: ["macos", "linux/x64"] }
+      # not in Homebrew. The zsltg tap has only a cask, and this repo uses
+      # casks on macOS only. run_after_32-iq-docs.sh installs the man page
+      # and the zsh completion.
+      "github:zsltg/iq": latest
       # "0", not latest: upstream marks the "nightly" release as latest, and
       # mise then installs nightly. Change to "latest" or "1" after 1.0.
       "github:lightpanda-io/browser": { version: "0", bin: lightpanda }

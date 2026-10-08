@@ -140,6 +140,7 @@ Each entry shows the command name, with a link to the source repository of the t
 - [golangci-lint](https://github.com/golangci/golangci-lint): Runs many Go linters with one command.
 - [govulncheck](https://github.com/golang/vuln): Finds known vulnerabilities in Go code and its dependencies.
 - [gremlins](https://github.com/go-gremlins/gremlins): Runs mutation tests for Go code.
+- [iq](https://github.com/zsltg/iq): Queries, copies and compares data in NoSQL databases, for example Redis, MongoDB and Cassandra, with jq filters.
 - [java](https://github.com/adoptium/temurin-build) (Temurin 21): Runs Java programs. The Java and Kotlin language servers in Neovim need it.
 - [lazygit](https://github.com/jesseduffield/lazygit): Gives a terminal UI for git commands.
 - [lightpanda](https://github.com/lightpanda-io/browser): Runs a headless browser for automation and AI agents.

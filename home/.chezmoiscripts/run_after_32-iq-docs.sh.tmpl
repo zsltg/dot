@@ -1,0 +1,24 @@
+{{ if .dev -}}
+#!/bin/bash
+# Install the man page and zsh completion of iq. mise installs only the binary.
+# iq prints both files, so this script needs no network.
+# This script runs on each "chezmoi apply". It writes a file only when the content changes.
+set -euo pipefail
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+
+command -v iq >/dev/null 2>&1 || exit 0
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+iq man > "$tmp/iq.1"
+iq completion zsh > "$tmp/_iq"
+
+man="$HOME/.local/share/man/man1"
+completions="$HOME/.local/share/zsh/site-functions"
+mkdir -p "$man" "$completions"
+cmp -s "$tmp/iq.1" "$man/iq.1" || install -m 644 "$tmp/iq.1" "$man/iq.1"
+if ! cmp -s "$tmp/_iq" "$completions/_iq"; then
+  install -m 644 "$tmp/_iq" "$completions/_iq"
+  # A new completion file is available. Make zsh build its completion cache again.
+  rm -f "$HOME/.cache/zsh/zcompdump"
+fi
+{{ end -}}
