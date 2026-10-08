@@ -103,7 +103,7 @@ Each entry shows the command name, with a link to the source repository of the t
 - [mise](https://github.com/jdx/mise): Installs runtimes and tools for each project, for example Node.js and Go.
 - [node](https://github.com/nodejs/node) (LTS): Runs JavaScript outside of a browser.
 - [nvim](https://github.com/neovim/neovim): Edits text, as a Vim fork with a focus on extensibility.
-- [ruby](https://github.com/ruby/ruby) (3.3): Runs programs in the Ruby programming language.
+- [ruby](https://github.com/ruby/ruby) (4.0): Runs programs in the Ruby programming language.
 - [starship](https://github.com/starship/starship): Shows a fast shell prompt with information about the current directory.
 - [tmux](https://github.com/tmux/tmux): Runs many terminal sessions in one window and keeps them after you disconnect.
 - [tree-sitter](https://github.com/tree-sitter/tree-sitter): Builds the tree-sitter parsers that Neovim uses for syntax highlighting.

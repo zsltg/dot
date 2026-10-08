@@ -73,7 +73,7 @@ packages:
       # "core:" comes before "gem:". A shim runs the first tool that has the
       # command. Thus "bundle", "erb" and "rdoc" run from Ruby, not from the
       # copies that gem:solargraph adds.
-      "core:ruby": "3.3"
+      "core:ruby": "4.0"
       go: latest
       "cargo:ck-search": latest
       # brew has an old fq release
