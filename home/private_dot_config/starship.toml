@@ -1,3 +1,34 @@
+# Wait up to 150 ms for the directory scan. The default is 30 ms.
+scan_timeout = 150
+# Wait up to 2000 ms for each background command. The default is 500 ms.
+command_timeout = 2000
+
+[git_branch]
+# Show only the branch name, without the symbol, as in the Pure prompt.
+format = '[$branch]($style) '
+
+[git_status]
+# Show the status without the default [ ] brackets.
+format = '[$all_status$ahead_behind]($style) '
+# Use the Pure arrows, without the count.
+ahead = '⇡'
+behind = '⇣'
+diverged = '⇡⇣'
+
+[username]
+# Show the user only in an SSH session or as root.
+show_always = false
+
+[hostname]
+# Show the hostname only in an SSH session.
+ssh_only = true
+style = "fg:242"
+format = "[$hostname]($style) "
+
+[package]
+# Do not show the package version of the project.
+disabled = true
+
 [ruby]
 detect_extensions = ['rb']
 detect_files = ['Gemfile', '.ruby-version']
