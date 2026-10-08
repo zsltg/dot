@@ -34,6 +34,23 @@ retry() {
 echo "mise: installing the runtimes and tools. This can take some minutes."
 retry mise install --yes node go ruby
 mise reshim
+
+# A gem: tool runs on the Ruby that was current when mise installed it. Its
+# libexec/bin/ruby link points to that Ruby. Reinstall each gem: tool whose link
+# does not point to the current Ruby, for example after a change of the Ruby
+# version.
+ruby_bin=$(realpath "$(mise where ruby)/bin/ruby")
+mise ls --current --installed --json |
+  jq -r 'to_entries[] | select(.key | startswith("gem:")) | "\(.key) \(.value[0].install_path)"' |
+  while read -r tool dir; do
+    link=$dir/libexec/bin/ruby
+    [[ -L $link ]] || continue
+    if [[ ! -e $link || $(realpath "$link") != "$ruby_bin" ]]; then
+      echo "mise: installing $tool again for the current Ruby."
+      retry mise install --yes --force "$tool"
+    fi
+  done
+
 retry mise install --yes
 mise reshim
 
