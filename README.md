@@ -90,7 +90,6 @@ Each entry shows the command name, with a link to the source repository of the t
 - [hyperfine](https://github.com/sharkdp/hyperfine): Measures and compares the run time of commands.
 - [just](https://github.com/casey/just): Runs the commands of a project from a `justfile`.
 - [magika](https://github.com/google/magika): Finds the content type of files with an AI model.
-- [markitdown](https://github.com/microsoft/markitdown): Converts files such as PDF, Word and Excel documents to Markdown.
 - [pandoc](https://github.com/jgm/pandoc): Converts documents between markup formats, for example Markdown, HTML and DOCX.
 - [tldr](https://github.com/tldr-pages/tlrc): Shows short command examples from the tldr pages.
 
