@@ -83,7 +83,6 @@ packages:
         version: latest
         # the release zip has no execute bits; rename_exe sets them
         rename_exe: { biodiff: biodiff, git-biodiff: git-biodiff }
-      "pipx:markitdown[all]": latest
       # the brew formula needs apache-arrow and llvm; the PyPI wheels do not
       "pipx:harlequin": latest
     mise_linux_amd64:
