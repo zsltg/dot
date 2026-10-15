@@ -20,13 +20,13 @@ return {
 		},
 		opts = {
 			automatic_enable = {
-				-- conform.nvim runs stylua.
-				exclude = { "stylua" },
+				-- conform.nvim runs stylua. nvim-jdtls starts Java with debug support.
+				exclude = { "stylua", "jdtls" },
 			},
 		},
 	},
 	{
-		-- Installs the language servers, linters and formatters.
+		-- Installs the language servers, linters, formatters and debug adapters.
 		-- Language servers use the nvim-lspconfig names.
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		dependencies = { "mason-org/mason-lspconfig.nvim" },
@@ -75,6 +75,16 @@ return {
 				"shfmt", -- sh, bash
 				"sql-formatter", -- SQL
 				"stylua", -- Lua
+				-- Debug adapters
+				"bash-debug-adapter", -- Bash
+				"codelldb", -- C, C++, Rust
+				"debugpy", -- Python
+				"delve", -- Go
+				"java-debug-adapter", -- Java
+				"java-test", -- JUnit, TestNG
+				"js-debug-adapter", -- JavaScript, TypeScript
+				"kotlin-debug-adapter", -- Kotlin/JVM
+				"perl-debug-adapter", -- Perl
 			},
 		},
 	},

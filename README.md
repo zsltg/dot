@@ -217,6 +217,52 @@ chezmoi apply --refresh-externals   # font and agent skills, before the refresh 
 
 The Alacritty script runs on each `chezmoi apply` and builds only when a new release exists.
 
+## Neovim debugging
+
+[nvim-dap](https://github.com/mfussenegger/nvim-dap) connects Neovim to debug adapters, which control the language debuggers.
+[nvim-dap-view](https://github.com/igorlfs/nvim-dap-view) shows variables, watches, breakpoints, the call stack, and the debug console.
+The debug window opens when a session starts and closes when it ends. Variable values also appear beside the code.
+Mason installs the adapters with the other Neovim tools. After the first installation, restart Neovim before you debug Java.
+
+The debug keys use `<leader>D` (Space, then uppercase D). The existing `<leader>d` delete mapping stays available.
+
+| Key | Action |
+| --- | --- |
+| `<leader>Db` | Toggle a breakpoint. |
+| `<leader>DB` | Set a conditional breakpoint. |
+| `<leader>Dc` | Start or continue a session. |
+| `<leader>Dn` | Step over a call. |
+| `<leader>Di` | Step into a call. |
+| `<leader>Do` | Step out of a call. |
+| `<leader>Dl` | Run the last session again. |
+| `<leader>Dq` | Terminate the session. |
+| `<leader>Dd` | Disconnect the debugger. |
+| `<leader>Du` | Toggle the debug window. |
+| `<leader>Dh` | Inspect the variable under the cursor. |
+| `<leader>Dw` | Add a watch expression. |
+| `<leader>Dt` | Debug the nearest Go, Python, or Java test. |
+
+Open Neovim in the project root. Set a breakpoint with `<leader>Db`, then press `<leader>Dc` to select a launch configuration.
+For project arguments, environment variables, build paths, or ports, add a `.vscode/launch.json` file. nvim-dap reads it when you start a session.
+Adapter installation does not install project dependencies or build the program. VS Code extension commands and build tasks do not run automatically in Neovim.
+
+| Language | Adapter and preparation |
+| --- | --- |
+| C, C++, Rust | CodeLLDB. Build with debug symbols, then select the executable. For Rust, use `cargo build` and select the binary under `target/debug/`. |
+| Go | Delve with nvim-dap-go. Select a package, file, test, or process to debug. |
+| Python | debugpy with nvim-dap-python. The helper finds common project environments such as `.venv`, or uses the active environment. |
+| JavaScript, TypeScript | vscode-js-debug. Launch a Node file or Chromium browser, or attach to an inspector on port 9229. Configure a loader or compiled output for TypeScript that Node cannot run directly. |
+| Ruby | The project's `debug` gem through `bundle exec rdbg`. Add `gem "debug"` to the Gemfile and run `bundle install`. Select a Ruby file or RSpec file. |
+| Java | java-debug and java-test through nvim-jdtls. Wait for JDTLS to import the project before you launch a main class or debug a test. |
+| Kotlin/JVM | kotlin-debug-adapter. Build the project before you launch its main class, or attach to a JVM on port 5005. The existing Kotlin language server stays in use. |
+| Perl | perl-debug-adapter. Launch the current file with the project's Perl dependencies installed. |
+| Bash | bash-debug-adapter with its bundled bashdb. Launch the current Bash script. This configuration does not support zsh. |
+| Neovim Lua | one-small-step-for-vimkind. Run `:DapLuaServer` in the Neovim instance to debug. Open the same source in a second instance and select `Attach to Neovim`. |
+
+Node and Deno can expose an inspector with `--inspect-brk=127.0.0.1:9229`. Bun needs a separate adapter and has no configuration here.
+For Kotlin tests, start Gradle with `./gradlew test --debug-jvm`, then select `Attach to Kotlin JVM`.
+The Lua debug server listens on `127.0.0.1:8086`. Use breakpoints in the files that the target Neovim instance loads.
+
 ## Machine-specific settings and secrets
 
 Do not put secrets in this repo. Put them in these files, which the repo does not contain:
