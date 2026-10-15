@@ -32,7 +32,7 @@ jobs:
         run: |
           sudo apt-get install -y --no-install-recommends zsh
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          brew install chezmoi shellcheck actionlint zizmor gitleaks
+          brew install chezmoi shellcheck actionlint zizmor betterleaks
           echo "$HOMEBREW_PREFIX/bin" >>"$GITHUB_PATH"
       - name: Check
         env:

@@ -116,6 +116,7 @@ Each entry shows the command name, with a link to the source repository of the t
 - [agg](https://github.com/asciinema/agg): Converts asciinema recordings to GIF files.
 - [asciinema](https://github.com/asciinema/asciinema): Records terminal sessions and shares them.
 - [ast-grep](https://github.com/ast-grep/ast-grep): Searches, lints and rewrites code by its syntax tree.
+- [betterleaks](https://github.com/betterleaks/betterleaks): Finds secrets, such as API keys, in git repositories and files.
 - [bun](https://github.com/oven-sh/bun): Runs, bundles, tests and installs JavaScript and TypeScript code.
 - [cargo-auditable](https://github.com/rust-secure-code/cargo-auditable): Puts the dependency list into Rust binaries, so that you can audit them.
 - [cargo-deny](https://github.com/EmbarkStudios/cargo-deny): Lints the dependencies of Rust projects, for example their licenses and security advisories.
@@ -133,7 +134,6 @@ Each entry shows the command name, with a link to the source repository of the t
 - [gh](https://github.com/cli/cli): Works with GitHub pull requests, issues and repositories from the terminal.
 - [git-chglog](https://github.com/git-chglog/git-chglog): Makes a CHANGELOG from git tags and commits.
 - [git-filter-repo](https://github.com/newren/git-filter-repo): Rewrites the history of a git repository.
-- [gitleaks](https://github.com/gitleaks/gitleaks): Finds secrets, such as API keys, in git repositories.
 - [gofumpt](https://github.com/mvdan/gofumpt): Formats Go code with stricter rules than `gofmt`.
 - [goimports](https://github.com/golang/tools): Formats Go code and adds or removes import lines.
 - [golangci-lint](https://github.com/golangci/golangci-lint): Runs many Go linters with one command.
@@ -270,7 +270,7 @@ Do not put secrets in this repo. Put them in these files, which the repo does no
 - `~/.zshenv.local`: environment variables and API keys.
 - `~/.zshrc.local`: interactive shell settings for one machine.
 
-Enable the gitleaks pre-commit hook once per clone:
+Enable the betterleaks pre-commit hook once per clone:
 
 ```sh
 git config core.hooksPath .githooks
@@ -278,7 +278,7 @@ git config core.hooksPath .githooks
 
 ## Checks
 
-`scripts/check.sh` renders the templates for Linux and macOS, amd64 and arm64, and each palette. Then it lints the rendered scripts and zsh files, lints the GitHub workflows and finds secrets. The Lint workflow runs it on each push and pull request. Run it before you commit:
+`scripts/check.sh` renders the templates for Linux and macOS, amd64 and arm64, and each palette. Then it lints the rendered scripts and zsh files, lints the GitHub workflows and finds secrets. betterleaks runs with validation off, so it does not send a secret that it finds to the API of its provider. The Lint workflow runs it on each push and pull request. Run it before you commit:
 
 ```sh
 scripts/check.sh
@@ -292,7 +292,7 @@ The Install workflow installs the dotfiles on a new Ubuntu container (amd64 and 
 
 - `home/`: the chezmoi source state (see `.chezmoiroot`).
 - `home/.chezmoiscripts/`: install scripts, in the order of their numbers.
-- `scripts/check.sh`, `scripts/install-test.sh`: the repo checks and the install test. `.github/workflows/`: the CI workflows.
+- `scripts/check.sh`, `scripts/install-test.sh`: the repo checks and the install test. `scripts/betterleaks.sh`: runs betterleaks with validation off. `.github/workflows/`: the CI workflows.
 - `home/.lazy-lock.json`: the plugin versions for Neovim. `~/.config/nvim/lazy-lock.json` is a symlink to this file, so `:Lazy update` changes it in the repo. Commit the change.
 
 ## License

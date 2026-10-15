@@ -95,7 +95,7 @@ packages:
       - ast-grep
       - taplo
       - cloc
-      - gitleaks
+      - betterleaks
       - shellcheck
       - actionlint
       - zizmor
