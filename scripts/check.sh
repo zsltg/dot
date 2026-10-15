@@ -5,8 +5,9 @@
 #    groups on and all groups off. A template error fails the check.
 # 2. Lint the rendered install scripts (bash -n, shellcheck) and zsh files (zsh -n).
 # 3. Lint the tracked shell scripts outside home/ (shellcheck).
-# 4. Lint the GitHub workflows (actionlint, zizmor) and find secrets
-#    (betterleaks, with validation off).
+# 4. Lint the GitHub workflows (actionlint, zizmor).
+# 5. Find secrets in the git history and in the files (betterleaks, with
+#    validation off).
 #
 # Needs chezmoi, jq, zsh, shellcheck, actionlint, zizmor and betterleaks.
 # zizmor also runs its online audits when GH_TOKEN is set.
@@ -104,7 +105,8 @@ step "lint rendered zsh files" lint_zsh
 step "lint repo scripts" lint_repo_scripts
 step "actionlint" bash -c 'cd "$1" && actionlint' _ "$repo"
 step "zizmor" zizmor --no-progress "$repo/.github"
-step "secrets" "$repo/scripts/betterleaks.sh" dir "$repo"
+step "secrets in the git history" "$repo/scripts/betterleaks.sh" git "$repo"
+step "secrets in the files" "$repo/scripts/betterleaks.sh" dir "$repo"
 
 if ((${#failed[@]})); then
   printf 'FAILED: %s\n' "${failed[@]}" >&2

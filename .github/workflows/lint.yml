@@ -26,6 +26,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          # The full history, so that betterleaks scans each commit.
+          fetch-depth: 0
       # Homebrew is on the runner image, but not on PATH. It gives the latest
       # versions, the same as on a machine that this repo sets up.
       - name: Install tools

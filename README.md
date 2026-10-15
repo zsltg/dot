@@ -278,7 +278,7 @@ git config core.hooksPath .githooks
 
 ## Checks
 
-`scripts/check.sh` renders the templates for Linux and macOS, amd64 and arm64, and each palette. Then it lints the rendered scripts and zsh files, lints the GitHub workflows and finds secrets. betterleaks runs with validation off, so it does not send a secret that it finds to the API of its provider. The Lint workflow runs it on each push and pull request. Run it before you commit:
+`scripts/check.sh` renders the templates for Linux and macOS, amd64 and arm64, and each palette. Then it lints the rendered scripts and zsh files, lints the GitHub workflows, and finds secrets in the git history and in the files. betterleaks runs with validation off, so it does not send a secret that it finds to the API of its provider. The Lint workflow runs it on each push and pull request. Run it before you commit:
 
 ```sh
 scripts/check.sh
