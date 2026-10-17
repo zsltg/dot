@@ -9,7 +9,7 @@
 {{- $name := promptStringOnce . "name" "Full name for git commits" $gitName -}}
 {{- $email := promptStringOnce . "email" "Email address for git commits" $gitEmail -}}
 {{- $dev := promptBoolOnce . "dev" "Install the dev tools (linters, cargo tools, pnpm, bun, deno, gh)" -}}
-{{- $ai := promptBoolOnce . "ai" "Install the AI tools (claude-code, codex, pi, herdr, crit)" -}}
+{{- $ai := promptBoolOnce . "ai" "Install the AI tools (claude-code, codex, pi, herdr, herdr-reviewr)" -}}
 {{- $docker := promptBoolOnce . "docker" "Install Docker (docker-ce on Linux, colima on macOS)" -}}
 
 {{- $vm := false -}}

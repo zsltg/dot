@@ -16,7 +16,8 @@
 # - the first "chezmoi apply" fails,
 # - a second "chezmoi apply" has changes to make, other than the run_after_
 #   scripts that run on each apply,
-# - a brew package or a mise tool of the enabled groups is not installed,
+# - a brew package, a mise tool or a herdr plugin of the enabled groups is not
+#   installed,
 # - zsh or nvim writes to stderr on startup,
 # - the zsh startup takes more than ZSH_STARTUP_LIMIT_MS (default 400).
 set -euo pipefail
@@ -91,6 +92,20 @@ if [ -n "$missing" ]; then
   echo "mise tools are missing:" >&2
   echo "$missing" >&2
   exit 1
+fi
+
+if $ai; then
+  echo "==> herdr plugins are installed"
+  installed="$("${clean[@]}" zsh -lc 'herdr plugin list')"
+  chezmoi execute-template <"$src/home/.chezmoiscripts/run_onchange_after_56-herdr-plugins.sh.tmpl" \
+    | sed -n '/^plugins=(/,/^)/{//!p;}' | tr -d '" ' >"$HOME/herdr-plugins.test"
+  while read -r repo; do
+    if ! grep -qF "[github:$repo@" <<<"$installed"; then
+      echo "the herdr plugin $repo is not installed" >&2
+      exit 1
+    fi
+  done <"$HOME/herdr-plugins.test"
+  rm "$HOME/herdr-plugins.test"
 fi
 
 # Set the array ptycmd to a command that runs "$@" in a pseudo terminal, as

@@ -9,6 +9,8 @@
 #              version, or a table of mise tool options.
 # mise_linux:  the same, Linux only.
 # mise_linux_amd64: the same, Linux x86_64 only.
+# herdr_plugins: herdr plugins (GitHub OWNER/REPO), installed with
+#              "herdr plugin install".
 packages:
   core:
     brew:
@@ -160,7 +162,9 @@ packages:
   ai:
     brew:
       - herdr
-      - crit
+    herdr_plugins:
+      # review pane for agent diffs, with line comments back to the agent
+      - persiyanov/herdr-reviewr
     cask_darwin:
       - claude-code
       - codex

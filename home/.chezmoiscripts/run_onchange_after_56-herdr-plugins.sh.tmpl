@@ -1,0 +1,40 @@
+{{ if .ai -}}
+#!/bin/bash
+# Install the herdr plugins of the enabled groups (see .chezmoidata/packages.yaml).
+# herdr gets each plugin from GitHub. An installed plugin stays as it is. To
+# update the plugins, run "herdr plugin update".
+# chezmoi runs this script again when the plugin list changes.
+set -euo pipefail
+{{ template "brew-env" . }}
+eval "$("$BREW" shellenv)"
+
+plugins=(
+{{- range (includeTemplate "groups" . | trim | splitList "\n") }}
+{{-   range (index $.packages . "herdr_plugins") }}
+  {{ . | quote }}
+{{-   end }}
+{{- end }}
+)
+
+# GitHub is sometimes slow. Wait longer after each failure, and try again.
+retry() {
+  local wait
+  for wait in 10 30 60; do
+    "$@" && return 0
+    echo "herdr: the attempt failed. Trying again in $wait s." >&2
+    sleep "$wait"
+  done
+  "$@"
+}
+
+installed="$(herdr plugin list)"
+# ${plugins[@]+...}: bash 3.2 on macOS stops on an empty array with "set -u".
+for repo in ${plugins[@]+"${plugins[@]}"}; do
+  # "herdr plugin list" shows the source of each plugin as [github:OWNER/REPO@COMMIT].
+  if grep -qF "[github:$repo@" <<<"$installed"; then
+    continue
+  fi
+  echo "herdr: installing the plugin $repo."
+  retry herdr plugin install --yes "$repo"
+done
+{{ end -}}
