@@ -169,7 +169,7 @@ Each entry shows the command name, with a link to the source repository of the t
 - [claude](https://github.com/anthropics/claude-code) (macOS: Homebrew cask, Linux: mise): Runs the Anthropic coding agent in the terminal.
 - [codex](https://github.com/openai/codex) (macOS: Homebrew cask, Linux: npm): Runs the OpenAI coding agent in the terminal.
 - [herdr](https://github.com/herdrdev/herdr): Runs AI coding agents in a terminal multiplexer.
-- [herdr-reviewr](https://github.com/persiyanov/herdr-reviewr) (herdr plugin): Shows the diff of an agent in a herdr pane, and sends your line comments back to the agent. To update it, run `herdr plugin update`.
+- [herdr-reviewr](https://github.com/persiyanov/herdr-reviewr) (herdr plugin): Shows the diff of an agent in a herdr pane, and sends your line comments back to the agent. To open the pane, press `ctrl+a r`. To update it, run `herdr plugin update`.
 - [pi](https://github.com/earendil-works/pi): Runs a coding agent with read, bash, edit and write tools.
 
 Agent skills go to `~/.agents/skills`. `~/.claude/skills` is a symlink to this folder. Claude Code, Codex and pi read the global instructions in `~/.agents/AGENTS.md`. chezmoi gets each skill from the default branch of its repo and refreshes it each week (`home/.chezmoiexternal.toml.tmpl`):
