@@ -174,14 +174,12 @@ Each entry shows the command name, with a link to the source repository of the t
 
 Agent skills go to `~/.agents/skills`. `~/.claude/skills` is a symlink to this folder. Claude Code, Codex and pi read the global instructions in `~/.agents/AGENTS.md`. chezmoi gets each skill from the default branch of its repo and refreshes it each week (`home/.chezmoiexternal.toml.tmpl`):
 
-- [ast-grep](https://github.com/ast-grep/agent-skill): Writes ast-grep rules for structural code search.
 - [ast-grep-outline](https://github.com/ast-grep/agent-skill): Shows a structural map of source files with `ast-grep outline`.
 - [caveman](https://github.com/JuliusBrussee/caveman): Makes agent replies short, but keeps the technical content.
 - [impeccable](https://github.com/pbakaus/impeccable): Teaches design craft, with commands that audit, critique and polish interfaces.
 - [last30days](https://github.com/mvanhorn/last30days-skill): Finds what people said about a topic in the last 30 days, on Reddit, X, YouTube, Hacker News and other sites.
 - [lightpanda](https://github.com/lightpanda-io/agent-skill): Uses the Lightpanda headless browser through MCP, CLI fetch or CDP, in place of Chrome.
 - [logo-design](https://github.com/kaankiziltug/logo-design-skill): Designs logos and brand marks, from the brief to the SVG files and the brand guidelines.
-- [pandascript](https://github.com/lightpanda-io/agent-skill): Writes PandaScript files, which Lightpanda replays with no LLM calls.
 - [security-audit](https://github.com/cloudflare/security-audit-skill): Finds security problems in a codebase and gives the evidence and the fix.
 - [simple-english](https://github.com/AminBlg/SimpleEnglish): Writes technical text with the rules of ASD-STE100 Simplified Technical English.
 
