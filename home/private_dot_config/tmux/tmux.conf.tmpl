@@ -6,6 +6,10 @@ set -g repeat-time 0
 # text becomes garbled (for example "h4;1:3u" for "h"). Keep it off.
 set -g extended-keys off
 set -ag terminal-overrides ",*:RGB"
+# Do not send bells to the outer terminal. Alacritty marks its window urgent
+# on each bell, and [bell] duration = 0 does not stop this. On Windows, the
+# taskbar entry then blinks. The window name still turns red on a bell.
+set -g bell-action none
 
 # F11 and F12 go to the previous and next window.
 bind-key -n F11 select-window -p
