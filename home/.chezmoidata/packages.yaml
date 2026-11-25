@@ -155,9 +155,9 @@ packages:
       # casks on macOS only. run_after_32-iq-docs.sh installs the man page
       # and the zsh completion.
       "github:zsltg/iq": latest
-      # "0", not latest: upstream marks the "nightly" release as latest, and
-      # mise then installs nightly. Change to "latest" or "1" after 1.0.
-      "github:lightpanda-io/browser": { version: "0", bin: lightpanda }
+      # "1", not latest: upstream marked the "nightly" release as latest
+      # before 1.0, and mise then installed nightly. "1" keeps stable 1.x.
+      "github:lightpanda-io/browser": { version: "1", bin: lightpanda }
 
   ai:
     brew:
